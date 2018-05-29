@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# Temp files
+*.java~
+
 # BlueJ files
 *.ctxt
 
