@@ -3,7 +3,7 @@ Player p;
 
 void setup() {
   size(770, 770); 
-  frameRate(10);
+  frameRate(1);
   board = new Board();
   p = new Player();
 }
@@ -18,5 +18,9 @@ void mouseClicked() {
 }
 
 int roll() {
-  return int(random(6)+1) + int(random(6)+1);
+  int l = int(random(6)+1);
+  int r = int(random(6)+1);
+  image(loadImage("dice_"+l+".png"), width/2-75, height/2-25, 50, 50);
+  image(loadImage("dice_"+r+".png"), width/2+25, height/2-25, 50, 50);
+  return l+r;
 }
