@@ -7,6 +7,7 @@ public class Board {
 
   public void display() {
     //image(background, 0, 0, 900, 900);
+    fill(255);
     for (int x = 0; x < width; x += width/11) {
       rect(x, 0, width/11, height/11);
       rect(x, 10*width/11, width/11, height/11);
