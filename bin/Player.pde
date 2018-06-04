@@ -13,6 +13,7 @@ public class Player {
   }
   
   void display() {
+    fill(0,255,0);
     rect(x,y, 10,10);
   }
   
@@ -20,7 +21,12 @@ public class Player {
     for (int m = 0; m < num; m++) {
       x += xspeed;
       y += yspeed;
+      checkCorner();
     }
+    
+  }
+  
+  void checkCorner() {
     // left bottom
     if ( x == width/22 && y == 21*height/22 ) {
       xspeed = 0;
