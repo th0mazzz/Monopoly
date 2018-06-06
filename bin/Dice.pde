@@ -1,4 +1,4 @@
-public class Dice{
+  public class Dice{
   int l;
   int r;
   
