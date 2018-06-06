@@ -1,13 +1,14 @@
 Board board;
 Player[] players;
 Dice dice;
+//Property[] props;
 
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
 
 void setup() {
-  size(1100, 1100);
+  size(770, 770);
   background(0, 255, 0);
 
   board = new Board();
