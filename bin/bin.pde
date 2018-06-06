@@ -1,27 +1,44 @@
 Board board;
-Player p;
+Player[] players;
+Dice dice;
+
+String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
+int numPlayers = 4;
+int turn;
 
 void setup() {
   size(1100, 1100);
-  background(0,255,0);
+  background(0, 255, 0);
+
   board = new Board();
-  p = new Player();
+  dice = new Dice();
+  turn = 0;
+  players = new Player[numPlayers];
+  for (int i = 0; i < numPlayers; i++) {
+    players[i] = new Player(inputNames[i]);
+  }
+}
+
+String printPlayers() {
+  String returnString = "";
+  for (Player p : players) {
+    returnString = returnString + p;
+  }
+  return returnString;
 }
 
 void draw() {
   board.display();
-  p.display();
+  for (Player player : players) {
+    player.display(); 
+    System.out.println(printPlayers());
+  }
 }
 
 void mouseClicked() {
-  p.move(roll());
-}
-
-int roll() {
-  int l = int(random(6)+1);
-  int r = int(random(6)+1);
-  background(0,255,0);
-  image(loadImage("dice_"+l+".png"), width/2-75, height/2-25, 50, 50);
-  image(loadImage("dice_"+r+".png"), width/2+25, height/2-25, 50, 50);
-  return l+r;
+  if (turn >= numPlayers) {
+    turn = 0;
+  }
+  players[turn].move(dice.roll());
+  turn++;
 }

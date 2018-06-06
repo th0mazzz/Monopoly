@@ -1,20 +1,26 @@
 int counter, money, jailCounter;
+color c;
 boolean inJail, haveJailCard;
 String name;
 float x, y;
 float xspeed, yspeed;
 
 public class Player {
-  Player() {
+  Player(String nombre) {
       x = 21*width/22;
       y = 21*height/22;
       xspeed = -width/11;
       yspeed = 0;
+      
+      name = nombre;
+      money = 1500;
+      c = color(random(255), random(255), random(255));
   }
   
   void display() {
-    fill(0,255,0);
+    fill(c);
     rect(x,y, 10,10);
+    text(name, x, y + 30);
   }
   
   void move(int num) {
@@ -47,5 +53,9 @@ public class Player {
       xspeed = -width/11;
       yspeed = 0;
     }
+  }
+  
+  String toString(){
+   return name; 
   }
 }
