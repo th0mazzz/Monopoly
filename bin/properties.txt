@@ -1,22 +1,28 @@
-0 1 200 NewYorkAve des -1 255 153 51
-0 2 180 TenneseeAve des -1 255 153 51
-0 4 180 St.JamesPlace des -1 255 153 51
-0 6 160 VirginiaAve des -1 204 0 204
-0 7 140 StatesAve des -1 204 0 204
-0 9 140 St.CharlesPlace des -1 204 0 204
-1 0 220 KentuckyAve des -1 255 0 0
-3 0 220 IndianaAve des -1 255 0 0
-4 0 240 IllinoisAve des -1 255 0 0
-6 0 260 AtlanticAve des -1 255 255 0
-7 0 260 VentnorAve des -1 255 255 0
-9 0 280 MarvinGardens des -1 255 255 0
-10 1 300 PacificAve des -1 0 255 0
-10 2 300 NorthCarolinaAve des -1 0 255 0
-10 4 320 PennsylvaniaAve des -1 0 255 0
-10 7 350 ParkPlace des -1 0 0 255
-10 9 400 Boardwalk des -1 0 0 255
-1 10 120 ConnecticutAve des -1 179 255 255
-2 10 100 VermontAve des -1 179 255 255
-4 10 100 OrientalAve des -1 179 255 255
-7 10 60 BalticAve des -1 102 51 0
-9 10 60 MediterraneanAve des -1 102 51 0
+0 1 200 NewYorkAve des 255 153 51
+0 2 180 TenneseeAve des 255 153 51
+0 4 180 St.JamesPlace des 255 153 51
+0 6 160 VirginiaAve des 204 0 204
+0 7 140 StatesAve des 204 0 204
+0 9 140 St.CharlesPlace des 204 0 204
+1 0 220 KentuckyAve des 255 0 0
+3 0 220 IndianaAve des 255 0 0
+4 0 240 IllinoisAve des 255 0 0
+6 0 260 AtlanticAve des 255 255 0
+7 0 260 VentnorAve des 255 255 0
+9 0 280 MarvinGardens des 255 255 0
+10 1 300 PacificAve des 0 255 0
+10 2 300 NorthCarolinaAve des 0 255 0
+10 4 320 PennsylvaniaAve des 0 255 0
+10 7 350 ParkPlace des 0 0 255
+10 9 400 Boardwalk des 0 0 255
+1 10 120 ConnecticutAve des 179 255 255
+2 10 100 VermontAve des 179 255 255
+4 10 100 OrientalAve des 179 255 255
+7 10 60 BalticAve des 102 51 0
+9 10 60 MediterraneanAve des 102 51 0
+0 5 200 PennsylvaniaRR des 245 245 239
+0 5 200 B.&O.RR des 245 245 239
+10 5 200 ShortLine des 245 245 239
+5 10 200 ReadingRR des 245 245 239
+8 0 150 WaterWorks des 216 216 192
+0 8 150 ElectricCo. des 216 216 192

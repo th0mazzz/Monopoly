@@ -2,12 +2,21 @@ public class Property{
  final int oneSide = width / 11; //for 770x770, this is 77
   
  int xcor, ycor;
- int value;
+ int numHouses, numHotels;
+ int ownerID;
  String name, des;
- int id;
+ boolean isMort, specialProp;
  color _color;
  
-  public Property(int x, int y, int v, String nombre, String write, int num, 
+ //variables that have to do with $
+ int value;
+ int baseRent;
+ int rentOne, rentTwo, rentThree, rentFour;
+ int rentHotel;
+ int mortPrice;
+ int housePrice, hotelPrice;
+ 
+  public Property(int x, int y, int v, String nombre, String write,  
                   int red, int green, int blue){
     xcor = x;
     ycor = y;
@@ -15,7 +24,8 @@ public class Property{
     name = nombre;
     des = write;
     _color = color(red,green,blue);
-    id = num;
+    ownerID = -1; //-1 means bank's (not owned by player yet)
+    isMort = false;
   }
   
   public void display(){
@@ -37,6 +47,6 @@ public class Property{
   }
   
   public String toString(){
-    return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+id+",\n"+_color; 
+    return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color; 
   }
 }

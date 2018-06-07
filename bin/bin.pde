@@ -31,8 +31,10 @@ void setup() {
       props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
         Integer.parseInt(tok[2]), tok[3], tok[4], 
         Integer.parseInt(tok[5]), 
-        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]), Integer.parseInt(tok[8]));
+        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]));
         line = reader.readLine();
+        
+        
         counter++;
     }
     
@@ -69,8 +71,8 @@ void draw() {
     //System.out.println(printPlayers());
   }
   
-  for(int i = 0; i < 22; i++){
-    props[i].display(); 
+  for(Property prop : props){
+    prop.display(); 
   }
 }
 
