@@ -66,13 +66,12 @@ String printProps() {
 
 void draw() {
   board.display();
+  for(Property prop : props){
+    prop.display(); 
+  }
   for (Player player : players) {
     player.display(); 
     //System.out.println(printPlayers());
-  }
-  
-  for(Property prop : props){
-    prop.display(); 
   }
 }
 

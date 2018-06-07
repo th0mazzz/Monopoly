@@ -14,7 +14,7 @@ public class Property{
  int rentOne, rentTwo, rentThree, rentFour;
  int rentHotel;
  int mortPrice;
- int housePrice, hotelPrice;
+ int buildingPrice;
  
   public Property(int x, int y, int v, String nombre, String write,  
                   int red, int green, int blue){
