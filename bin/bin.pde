@@ -1,12 +1,9 @@
-Board board;
 import java.io.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
+Board board;
 Player[] players;
 Dice dice;
-Property[] props;
+Property[] props = new Property[28];
 
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
@@ -23,25 +20,30 @@ void setup() {
   for (int i = 0; i < numPlayers; i++) {
     players[i] = new Player(inputNames[i]);
   }
-  
-  try{
-   String fileName = "properties.txt";
-   File theProps = new File(fileName);
-   Scanner in = new Scanner(theProps);
-   
-   while(in.hasNext()){
-     int counter = 0;
-     String line = in.nextLine();
-     String[] tok = line.split(" ");
-                            //Property(xcor, ycor, price, name, description, ownerID, color
-     props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
-                                   Integer.parseInt(tok[2]), tok[3], tok[4], 
-                                   Integer.parseInt(tok[5]), Integer.parseInt(tok[6]));
-     
-   }
-  }catch(FileNotFoundException e){
-    System.out.println("properties.txt cannot be located");
+
+  try {
+    int counter = 0;
+    BufferedReader reader = createReader("properties.txt");
+    String line = reader.readLine();
+    while (line != null) {
+      String[] tok = line.split(" ");
+      //Property(xcor, ycor, price, name, description, ownerID, color
+      props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
+        Integer.parseInt(tok[2]), tok[3], tok[4], 
+        Integer.parseInt(tok[5]), 
+        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]), Integer.parseInt(tok[8]));
+        line = reader.readLine();
+        counter++;
+    }
+    
   }
+  catch(IOException e) {
+    System.out.println("Something's wrong");
+  }
+  
+  //OUTPUT CODE TO SEE
+  System.out.println(printProps());
+  //END
 }
 
 String printPlayers() {
@@ -52,11 +54,23 @@ String printPlayers() {
   return returnString;
 }
 
+String printProps() {
+  String returnString = "";
+  for (Property p : props) {
+    returnString = returnString + p + "\n\n";
+  }
+  return returnString;
+}
+
 void draw() {
   board.display();
   for (Player player : players) {
     player.display(); 
-    System.out.println(printPlayers());
+    //System.out.println(printPlayers());
+  }
+  
+  for(int i = 0; i < 2; i++){
+    props[i].display(); 
   }
 }
 
