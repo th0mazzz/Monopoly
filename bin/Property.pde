@@ -13,6 +13,9 @@ public class Property{
     _color = clr;
   }
   
-  
+  public void display(){
+    fill(_color);
+    rect(xcor, ycor, height/11, width/11);
+  }
   
 }

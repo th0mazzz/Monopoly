@@ -9,7 +9,7 @@ int turn;
 
 void setup() {
   size(770, 770);
-  background(0, 255, 0);
+  background(204, 255, 245);
 
   board = new Board();
   dice = new Dice();
