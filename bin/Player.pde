@@ -97,6 +97,16 @@ public class Player {
     inJail = true;
   }
   
+  void addProperty(Property p) {
+    properties.add(p);
+  }
+  //temp
+  void printProperties() {
+    for (Property p : properties) {
+      System.out.println(p);
+    }
+  }
+  
   String toString() {
     return name;
   }

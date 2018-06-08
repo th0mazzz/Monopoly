@@ -47,12 +47,23 @@ public class Property{
     fill(0);
     text(name, oneSide*xcor, oneSide*ycor+oneSide/2);
     if (value != 0) {
-      text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
+      if (ownerID == -1) {
+        text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
+      } else {
+        text("$" + "WIP rent", oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
+      }
     }
   }
   
   int getCost() {
-    return value;
+    if (ownerID == -1) {
+      ownerID = turn;
+      getCurrentPlayer().addProperty(this);
+      return value;
+    } else {
+      System.out.println("WIP");
+      return 50;
+    }
   }
   
   String getName() {

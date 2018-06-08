@@ -85,6 +85,7 @@ void mouseClicked() {
     turn = 0;
   }
   getCurrentPlayer().move(dice.roll());
+  getCurrentPlayer().printProperties();
   turn++;
 }
 
