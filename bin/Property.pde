@@ -52,6 +52,10 @@ public class Property{
     return value;
   }
   
+  String getName() {
+    return name;
+  }
+  
   public String toString(){
     return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color; 
   }

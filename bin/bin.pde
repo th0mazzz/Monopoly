@@ -4,6 +4,8 @@ Board board;
 ArrayList<Player> players;
 Dice dice;
 Property[] props = new Property[40];
+Chance chanceCards;
+Chest chestCards;
 
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
@@ -17,6 +19,9 @@ void setup() {
   dice = new Dice();
   turn = 0;
   players = new ArrayList<Player>();
+  chanceCards = new Chance();
+  chestCards = new Chest();
+  
   for (int i = 0; i < numPlayers; i++) {
     players.add(new Player(inputNames[i],i));
   }
@@ -79,12 +84,26 @@ void mouseClicked() {
   if (turn >= players.size()) {
     turn = 0;
   }
-  players.get(turn).move(dice.roll());
-  checkTile(players.get(turn).getCurrentTile());
+  getCurrentPlayer().move(dice.roll());
   turn++;
 }
 
 void checkTile(int num) {
   System.out.println(props[num]);
-  players.get(turn).changeMoney(-props[num].getCost());
+  if (props[num].getName().equals("Chance")) {
+    chanceCards.action();
+  }
+  if (props[num].getName().equals("Community Chest")) {
+    chestCards.action();
+  }
+  if (num == 30) {
+    getCurrentPlayer().move(20);
+    getCurrentPlayer().goToJail();
+    getCurrentPlayer().changeMoney(-200);
+  }
+  getCurrentPlayer().changeMoney(-props[num].getCost());
+}
+
+Player getCurrentPlayer() {
+   return players.get(turn); 
 }

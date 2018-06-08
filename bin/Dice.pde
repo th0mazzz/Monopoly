@@ -17,6 +17,14 @@
     image(loadImage("dice_"+l+".png"), width/2-75, height/2-25, 50, 50);
     image(loadImage("dice_"+r+".png"), width/2+25, height/2-25, 50, 50);
     return l+r;
+    //Testing chance/community
+    /*
+    int num = 2-getCurrentPlayer().getCurrentTile();
+    if (num < 0) {
+      num+= 40;
+    }
+    return num;
+    */
   }
   
 }

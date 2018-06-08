@@ -1,7 +1,7 @@
 public class Chest {
   ArrayList<String> cards, deck;
 
-  public Chance() {
+  public Chest() {
      cards = new ArrayList<String>();
      deck = new ArrayList<String>();
      try {
@@ -49,7 +49,6 @@ public class Chest {
       getCurrentPlayer().getJailCard();
     }
     if (id == 5) {
-      if (id == 8) {
       int num = 10-getCurrentPlayer().getCurrentTile();
       if (num < 0) {
         num+= 40;

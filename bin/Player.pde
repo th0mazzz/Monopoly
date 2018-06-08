@@ -6,6 +6,7 @@ public class Player {
   String name;
   float x, y;
   float xspeed, yspeed;
+  ArrayList<Property> properties;
 
   Player(String nombre, int num) {
     x = 21*width/22;
@@ -15,6 +16,7 @@ public class Player {
     id = num;
     name = nombre;
     money = 1500;
+    properties = new ArrayList<Property>();
     c = color(random(255), random(255), random(255));
   }
 
@@ -42,6 +44,7 @@ public class Player {
         changeMoney(200);
       }
     }
+    checkTile(getCurrentPlayer().getCurrentTile());
   }
 
   void checkCorner() {
@@ -86,6 +89,13 @@ public class Player {
     return tileID;
   }
   
+  void getJailCard() {
+    haveJailCard = true;
+  }
+  
+  void goToJail() {
+    inJail = true;
+  }
   
   String toString() {
     return name;
