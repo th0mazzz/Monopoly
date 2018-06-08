@@ -44,7 +44,7 @@ void setup() {
   }
   
   //OUTPUT CODE TO SEE
-  System.out.println(printProps());
+  //System.out.println(printProps());
   //END
 }
 
@@ -80,5 +80,10 @@ void mouseClicked() {
     turn = 0;
   }
   players[turn].move(dice.roll());
+  checkTile(players[turn].getCurrentTile());
   turn++;
+}
+
+void checkTile(int num) {
+  System.out.println(props[num]);
 }

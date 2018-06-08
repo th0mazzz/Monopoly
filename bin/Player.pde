@@ -1,5 +1,5 @@
 public class Player {
-  int counter, money, jailCounter;
+  int counter, money, jailCounter,tileID;
   color c;
   boolean inJail, haveJailCard;
   String name;
@@ -28,6 +28,7 @@ public class Player {
       x += xspeed;
       y += yspeed;
       checkCorner();
+      tileID = (tileID+1)%40;
     }
   }
 
@@ -53,7 +54,11 @@ public class Player {
       yspeed = 0;
     }
   }
-
+  
+  int getCurrentTile() {
+    return tileID;
+  }
+  
   String toString() {
     return name;
   }
