@@ -1,9 +1,10 @@
 public class Chance {
-  Arraylist<String> cards;
-  
+  ArrayList<String> cards, deck;
+
   public Chance() {
+     cards = new ArrayList<String>();
+     deck = new ArrayList<String>();
      try {
-      int counter = 0;
       BufferedReader reader = createReader("properties.txt");
       String line = reader.readLine();
       while (line != null) {
@@ -14,13 +15,19 @@ public class Chance {
     } catch(IOException e) {
       System.out.println("Something's wrong");
     }
+    
+    shuffle();
   }
 
-  void suffle() {
-    
+  void shuffle() {
+    if (deck.isEmpty()) {
+      while (!cards.isEmpty()) {
+        deck.add(cards.remove(int(random(cards.size()))));
+      }
+    }
   }
   
   void action() {
-  
+    
   }
 }
