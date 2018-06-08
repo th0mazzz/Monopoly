@@ -31,19 +31,21 @@ public class Property{
   public void display(){
     fill(_color);
     rectMode(CENTER);
-    if(xcor == 0){
+    if(xcor == 0 && ycor != 0 && ycor != 10){
        rect(oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide);
     }
-    if(xcor == 10){
+    if(xcor == 10 && ycor != 0 && ycor != 10){
        rect(width-oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide);
     }
-    if(ycor == 0){
+    if(ycor == 0 && xcor != 0 && xcor != 10){
        rect(oneSide/2 + oneSide*xcor, oneSide*7/8, oneSide, oneSide/4);
     }
-    if(ycor == 10){
+    if(ycor == 10 && xcor != 0 && xcor != 10){
        rect(oneSide/2 + oneSide*xcor, height-oneSide*7/8, oneSide, oneSide/4); 
     }
     rectMode(CORNER);
+    fill(0);
+    text(name, oneSide*xcor, oneSide*ycor+oneSide/2);
   }
   
   public String toString(){

@@ -3,14 +3,14 @@ import java.io.*;
 Board board;
 Player[] players;
 Dice dice;
-Property[] props = new Property[28];
+Property[] props = new Property[40];
 
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
 
 void setup() {
-  size(770, 770);
+  size(1100, 1100);
   background(204, 255, 245);
 
   board = new Board();
@@ -20,13 +20,13 @@ void setup() {
   for (int i = 0; i < numPlayers; i++) {
     players[i] = new Player(inputNames[i]);
   }
-
+  
   try {
     int counter = 0;
     BufferedReader reader = createReader("properties.txt");
     String line = reader.readLine();
     while (line != null) {
-      String[] tok = line.split(" ");
+      String[] tok = line.split(";");
       //Property(xcor, ycor, price, name, description, ownerID, color
       props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
         Integer.parseInt(tok[2]), tok[3], tok[4], 
