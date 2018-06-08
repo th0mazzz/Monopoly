@@ -1,17 +1,18 @@
+import javax.swing.JOptionPane;
 public class Player {
-  int counter, money, jailCounter,tileID;
+  int counter, money, jailCounter,tileID, id;
   color c;
   boolean inJail, haveJailCard;
   String name;
   float x, y;
   float xspeed, yspeed;
 
-  Player(String nombre) {
+  Player(String nombre, int num) {
     x = 21*width/22;
     y = 21*height/22;
     xspeed = -width/11;
     yspeed = 0;
-
+    id = num;
     name = nombre;
     money = 1500;
     c = color(random(255), random(255), random(255));
@@ -21,6 +22,14 @@ public class Player {
     fill(c);
     rect(x, y, 10, 10);
     text(name, x, y + 30);
+    textSize(50);
+    fill(204,255,245);
+    noStroke();
+    rect(5*width/11, height/11 +(id+1)*60-50, width/4,52);
+    stroke(0);
+    fill(c);
+    text(money, 5*width/11, height/11+ (id+1)*60);
+    textSize(11);
   }
 
   void move(int num) {
@@ -54,10 +63,26 @@ public class Player {
       yspeed = 0;
     }
   }
+  void changeMoney(int num){
+    money += num;
+    if ( money < 0 ) {
+      JOptionPane.showMessageDialog(null, name + " has gone bankrupt", "Bankrupt", JOptionPane.INFORMATION_MESSAGE);
+      players.remove(this);
+      fill(204,255,245);
+      noStroke();
+      rect(5*width/11, height/11 +(id+1)*60-50, width/4,52);
+      stroke(0);
+      
+      if (players.size() == 1) {
+        JOptionPane.showMessageDialog(null, players.get(0) + " has won", "Winner", JOptionPane.INFORMATION_MESSAGE);
+      }
+    }
+  }
   
   int getCurrentTile() {
     return tileID;
   }
+  
   
   String toString() {
     return name;

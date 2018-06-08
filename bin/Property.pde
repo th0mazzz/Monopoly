@@ -48,6 +48,10 @@ public class Property{
     text(name, oneSide*xcor, oneSide*ycor+oneSide/2);
   }
   
+  int getCost() {
+    return value;
+  }
+  
   public String toString(){
     return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color; 
   }

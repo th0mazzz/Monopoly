@@ -1,7 +1,7 @@
 import java.io.*;
 
 Board board;
-Player[] players;
+ArrayList<Player> players;
 Dice dice;
 Property[] props = new Property[40];
 
@@ -16,9 +16,9 @@ void setup() {
   board = new Board();
   dice = new Dice();
   turn = 0;
-  players = new Player[numPlayers];
+  players = new ArrayList<Player>();
   for (int i = 0; i < numPlayers; i++) {
-    players[i] = new Player(inputNames[i]);
+    players.add(new Player(inputNames[i],i));
   }
   
   try {
@@ -76,14 +76,15 @@ void draw() {
 }
 
 void mouseClicked() {
-  if (turn >= numPlayers) {
+  if (turn >= players.size()) {
     turn = 0;
   }
-  players[turn].move(dice.roll());
-  checkTile(players[turn].getCurrentTile());
+  players.get(turn).move(dice.roll());
+  checkTile(players.get(turn).getCurrentTile());
   turn++;
 }
 
 void checkTile(int num) {
   System.out.println(props[num]);
+  players.get(turn).changeMoney(-props[num].getCost());
 }
