@@ -38,6 +38,9 @@ public class Player {
       y += yspeed;
       checkCorner();
       tileID = (tileID+1)%40;
+      if (tileID == 0) {
+        changeMoney(200);
+      }
     }
   }
 
