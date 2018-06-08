@@ -46,6 +46,7 @@ public class Property{
     rectMode(CORNER);
     fill(0);
     text(name, oneSide*xcor, oneSide*ycor+oneSide/2);
+    text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
   }
   
   int getCost() {
