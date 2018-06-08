@@ -5,7 +5,7 @@ public class Chance {
      cards = new ArrayList<String>();
      deck = new ArrayList<String>();
      try {
-      BufferedReader reader = createReader("properties.txt");
+      BufferedReader reader = createReader("chance.txt");
       String line = reader.readLine();
       while (line != null) {
         cards.add(line);
