@@ -1,28 +1,40 @@
-0 1 200 NewYorkAve des 255 153 51
-0 2 180 TenneseeAve des 255 153 51
-0 4 180 St.JamesPlace des 255 153 51
-0 6 160 VirginiaAve des 204 0 204
-0 7 140 StatesAve des 204 0 204
-0 9 140 St.CharlesPlace des 204 0 204
-1 0 220 KentuckyAve des 255 0 0
-3 0 220 IndianaAve des 255 0 0
-4 0 240 IllinoisAve des 255 0 0
-6 0 260 AtlanticAve des 255 255 0
-7 0 260 VentnorAve des 255 255 0
-9 0 280 MarvinGardens des 255 255 0
-10 1 300 PacificAve des 0 255 0
-10 2 300 NorthCarolinaAve des 0 255 0
-10 4 320 PennsylvaniaAve des 0 255 0
-10 7 350 ParkPlace des 0 0 255
-10 9 400 Boardwalk des 0 0 255
-1 10 120 ConnecticutAve des 179 255 255
-2 10 100 VermontAve des 179 255 255
-4 10 100 OrientalAve des 179 255 255
-7 10 60 BalticAve des 102 51 0
-9 10 60 MediterraneanAve des 102 51 0
-0 5 200 PennsylvaniaRR des 245 245 239
-0 5 200 B.&O.RR des 245 245 239
-10 5 200 ShortLine des 245 245 239
-5 10 200 ReadingRR des 245 245 239
-8 0 150 WaterWorks des 216 216 192
-0 8 150 ElectricCo. des 216 216 192
+0;1;200;NewYork Ave;des;255;153;51
+0;2;180;Tennesee Ave;des;255;153;51
+0;4;180;St.James Place;des;255;153;51
+0;6;160;Virginia Ave;des;204;0;204
+0;7;140;States Ave;des;204;0;204
+0;9;140;St.Charles Place;des;204;0;204
+1;0;220;Kentucky Ave;des;255;0;0
+3;0;220;Indiana Ave;des;255;0;0
+4;0;240;Illinois Ave;des;255;0;0
+6;0;260;Atlantic Ave;des;255;255;0
+7;0;260;Ventnor Ave;des;255;255;0
+9;0;280;Marvin Gardens;des;255;255;0
+10;1;300;Pacific Ave;des;0;255;0
+10;2;300;North Carolina Ave;des;0;255;0
+10;4;320;Pennsylvania Ave;des;0;255;0
+10;7;350;Park Place;des;0;0;255
+10;9;400;Boardwalk;des;0;0;255
+1;10;120;Connecticut Ave;des;179;255;255
+2;10;100;Vermont Ave;des;179;255;255
+4;10;100;Oriental Ave;des;179;255;255
+7;10;60;Baltic Ave;des;102;51;0
+9;10;60;Mediterranean Ave;des;102;51;0
+0;5;200;Pennsylvania RR;des;245;245;239
+5;0;200;B.&O. RR;des;245;245;239
+10;5;200;Short Line;des;245;245;239
+5;10;200;Reading RR;des;245;245;239
+8;0;150;Water Works;des;216;216;192
+0;8;150;Electric Co.;des;216;216;192
+0;0;0;Free Parking;des;255;255;255
+10;0;0;Go To Jail;des;255;255;255
+10;10;0;Start;des;255;255;255
+0;10;0;In Jail/Visiting;des;255;255;255
+0;3;0;Community Chest;des;255;255;255
+8;10;0;Community Chest;des;255;255;255
+10;3;0;Community Chest;des;255;255;255
+2;0;0;Chance;des;255;255;255
+10;6;0;Chance;des;255;255;255
+3;10;0;Chance;des;255;255;255
+6;10;200;Income Tax;des;255;255;255
+10;8;75;Luxury Tax;des;255;255;255
