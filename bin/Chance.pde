@@ -33,41 +33,41 @@ public class Chance {
   
   void action() {
     int id = drawCard();
-    id = 4;
+    System.out.println(id);
     System.out.println(cards.get(id));
     if (id == 0) {
-      players.get(turn).move(40-players.get(turn).getCurrentTile()); 
+      getCurrentPlayer().move(40-getCurrentPlayer().getCurrentTile()); 
     }
     if (id == 1) {
-      int num = 24-players.get(turn).getCurrentTile();
+      int num = 24-getCurrentPlayer().getCurrentTile();
       if (num < 0) {
         num+= 40;
       }
-      players.get(turn).move(num); 
+      getCurrentPlayer().move(num); 
     }
     if (id == 2) {
-      int num = 11-players.get(turn).getCurrentTile();
+      int num = 11-getCurrentPlayer().getCurrentTile();
       if (num < 0) {
         num+= 40;
       }
-      players.get(turn).move(num); 
+      getCurrentPlayer().move(num); 
     } 
     if (id == 3) {
-      int num1 = 12-players.get(turn).getCurrentTile();
-      int num2 = 28-players.get(turn).getCurrentTile();
+      int num1 = 12-getCurrentPlayer().getCurrentTile();
+      int num2 = 28-getCurrentPlayer().getCurrentTile();
       if (num1 < 0) {
         num1+= 40;
       }
       if (num2 < 0) {
         num2+= 40;
       }
-      players.get(turn).move(min(num1,num2)); 
+      getCurrentPlayer().move(min(num1,num2)); 
     }
     if (id == 4) {
-      int num1 = 5-players.get(turn).getCurrentTile();
-      int num2 = 15-players.get(turn).getCurrentTile();
-      int num3 = 25-players.get(turn).getCurrentTile();
-      int num4 = 35-players.get(turn).getCurrentTile();
+      int num1 = 5-getCurrentPlayer().getCurrentTile();
+      int num2 = 15-getCurrentPlayer().getCurrentTile();
+      int num3 = 25-getCurrentPlayer().getCurrentTile();
+      int num4 = 35-getCurrentPlayer().getCurrentTile();
       if (num1 < 0) {
         num1+= 40;
       }
@@ -80,11 +80,60 @@ public class Chance {
       if (num4 < 0) {
         num2+= 40;
       }
-      players.get(turn).move(min(min(num1,num2),min(num3,num4))); 
+      getCurrentPlayer().move(min(min(num1,num2),min(num3,num4))); 
+    }
+    if (id == 5) {
+      getCurrentPlayer().changeMoney(50);
+    }
+    if (id == 6) {
+      getCurrentPlayer().getJailCard();
+    }
+    if (id == 7) {
+      getCurrentPlayer().move(37);
+      getCurrentPlayer().changeMoney(-200);
+    }
+    if (id == 8) {
+      int num = 10-getCurrentPlayer().getCurrentTile();
+      if (num < 0) {
+        num+= 40;
+      }
+      if (num > 3) {
+        getCurrentPlayer().changeMoney(-200);
+      }
+      getCurrentPlayer().goToJail(); 
+      getCurrentPlayer().move(num); 
+    }
+    if (id == 9) {
+      System.out.println("Houses and hotels are WIP");
+      //getCurrentPlayer().changeMoney(-100*hotel-25*house);
+    }
+    if (id == 10) {
+      getCurrentPlayer().changeMoney(-15);
+    }
+    if (id == 11) {
+      getCurrentPlayer().move(5-getCurrentPlayer().getCurrentTile()); 
+    }
+    if (id == 12) {
+      getCurrentPlayer().move(39-getCurrentPlayer().getCurrentTile()); 
+    }
+    if (id == 13) {
+      for (Player p : players) {
+        p.changeMoney(50);
+      }
+      getCurrentPlayer().changeMoney(-50*players.size());
+    }
+    if (id == 14) {
+      getCurrentPlayer().changeMoney(150);
+    }
+    if (id == 15) {
+      getCurrentPlayer().changeMoney(100);
     }
   }
   
   int drawCard() {
+    if (deck.isEmpty()) {
+      shuffle();
+    }
    return cards.indexOf(deck.remove(0)); 
   }
 }
