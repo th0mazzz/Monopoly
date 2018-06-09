@@ -33,6 +33,7 @@ public class Chest {
   
   void action() {
     int id = drawCard();
+    JOptionPane.showMessageDialog(null, cards.get(id), "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     if (id == 0) {
       getCurrentPlayer().move(40-getCurrentPlayer().getCurrentTile()); 
     }

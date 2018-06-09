@@ -107,6 +107,7 @@ void checkTile(int num) {
     chanceCards.action();
   }
   if (props[num].getName().equals("Community Chest")) {
+    JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on the Community Chest!", "Community Chest!", JOptionPane.INFORMATION_MESSAGE);
     chestCards.action();
   }
   if (num == 30) {
