@@ -18,7 +18,8 @@ public class Property{
  int buildingPrice;
  
   public Property(int x, int y, int v, String nombre, String write,  
-                  int red, int green, int blue){
+                  int red, int green, int blue,
+                  boolean special){
     xcor = x;
     ycor = y;
     value = v;
@@ -27,6 +28,7 @@ public class Property{
     _color = color(red,green,blue);
     ownerID = -1; //-1 means bank's (not owned by player yet)
     isMort = false;
+    specialProp = special;
   }
   
   public void setBaseRent(int num){baseRent = num;}
@@ -76,11 +78,19 @@ public class Property{
     }
   }
   
+  boolean getSpecialStatus(){
+     return specialProp; 
+  }
+  
+  int getOwnerID(){
+     return ownerID; 
+  }
+  
   String getName() {
     return name;
   }
   
   public String toString(){
-    return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color; 
+    return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color+",\n"+specialProp; 
   }
 }

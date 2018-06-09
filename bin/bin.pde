@@ -11,6 +11,7 @@ Chest chestCards;
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
+int numRolled;
 
 void setup() {
   size(1100, 770);
@@ -34,12 +35,14 @@ void setup() {
     BufferedReader priceReader = createReader("prices.txt");
     String priceLine = priceReader.readLine();
     while (line != null) {
+      System.out.println(line);
       String[] tok = line.split(";");
-      //Property(xcor, ycor, price, name, description, ownerID, color
+      //Property(xcor, ycor, price, name, description, red, green, blue, specialProp?
       props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
         Integer.parseInt(tok[2]), tok[3], tok[4], 
         Integer.parseInt(tok[5]), 
-        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]));
+        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]),
+        Boolean.parseBoolean(tok[8]));
         line = reader.readLine();
         //price line reader thing here
         String[] priceTok = priceLine.split(";");
@@ -95,13 +98,21 @@ void mouseClicked() {
   if (turn >= players.size()) {
     turn = 0;
   }
-  getCurrentPlayer().move(dice.roll());
+  numRolled = dice.roll();
+  getCurrentPlayer().move(numRolled);
   getCurrentPlayer().printProperties();
   turn++;
 }
 
 void checkTile(int num) {
   System.out.println(props[num]);
+  if (!props[num].getSpecialStatus()){
+     if(props[num].getOwnerID() == -1){
+         String[] choices = {"Buy", "Auction"};
+         int response = JOptionPane.showOptionDialog(null, players.get(turn) + "\nWould you like to buy this property or auction?", "Unowned property!", 
+                                                  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+     }
+  }
   if (props[num].getName().equals("Chance")) {
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     chanceCards.action();

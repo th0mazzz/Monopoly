@@ -74,7 +74,7 @@ public class Player {
   void changeMoney(int num){
     money += num;
     if ( money < 0 ) {
-      JOptionPane.showMessageDialog(null, name + " has gone bankrupt", "Bankrupt", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(null, name + " has gone bankrupt!", "Bankrupt", JOptionPane.INFORMATION_MESSAGE);
       players.remove(this);
       fill(204,255,245);
       noStroke();
@@ -82,7 +82,7 @@ public class Player {
       stroke(0);
       
       if (players.size() == 1) {
-        JOptionPane.showMessageDialog(null, players.get(0) + " has won", "Winner", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, players.get(0) + " has won!", "Winner", JOptionPane.INFORMATION_MESSAGE);
       }
     }
   }
