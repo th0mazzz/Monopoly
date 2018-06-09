@@ -1,6 +1,8 @@
 import java.io.*;
 import javax.swing.JOptionPane;
 
+final int boardWidth = height;
+
 Board board;
 ArrayList<Player> players;
 Dice dice;
@@ -14,7 +16,7 @@ int turn;
 int numRolled;
 
 void setup() {
-  size(1100, 770);
+  size(1100, 770); //use some multiple of 1100 x 770
   background(204, 255, 245);
 
   board = new Board();
@@ -56,7 +58,8 @@ void setup() {
         priceLine = priceReader.readLine();
         counter++;
     }
-    
+    System.out.println("the height is " + height);
+    System.out.println("but the boardWidth is " + boardWidth);
   }
   catch(IOException e) {
     System.out.println("Something's wrong");
@@ -95,12 +98,14 @@ void draw() {
 }
 
 void mouseClicked() {
+  System.out.println(boardWidth);
+  System.out.println(height);
   if (turn >= players.size()) {
     turn = 0;
   }
   numRolled = dice.roll();
   getCurrentPlayer().move(numRolled);
-  getCurrentPlayer().printProperties();
+  //getCurrentPlayer().printProperties();
   turn++;
 }
 
@@ -111,6 +116,21 @@ void checkTile(int num) {
          String[] choices = {"Buy", "Auction"};
          int response = JOptionPane.showOptionDialog(null, players.get(turn) + "\nWould you like to buy this property or auction?", "Unowned property!", 
                                                   JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+         if(response == 0){
+           getCurrentPlayer().changeMoney(-props[num].getCost());
+           fill(0);
+           text(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height+height/16, height*3/4);
+         }
+         if(response == 1){
+           int highestBid = 0;
+           boolean[] inAuction = new boolean[numPlayers];
+           for(int i = 0; i < numPlayers; i++){
+             inAuction[i] = true; 
+           }
+           int numOutofAuc = 0;
+           int playerNum = turn;
+           
+         }
      }
   }
   if (props[num].getName().equals("Chance")) {
@@ -126,7 +146,6 @@ void checkTile(int num) {
     getCurrentPlayer().goToJail();
     getCurrentPlayer().changeMoney(-200);
   }
-  getCurrentPlayer().changeMoney(-props[num].getCost());
 }
 
 Player getCurrentPlayer() {

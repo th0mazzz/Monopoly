@@ -67,7 +67,7 @@ public class Property{
     }
   }
   
-  int getCost() {
+  int getCost() { //basically the buy property function
     if (ownerID == -1) {
       ownerID = turn;
       getCurrentPlayer().addProperty(this);
@@ -88,6 +88,10 @@ public class Property{
   
   String getName() {
     return name;
+  }
+  
+  int getValue(){
+     return value; 
   }
   
   public String toString(){
