@@ -29,10 +29,10 @@ public class Player {
     textSize(20);
     fill(204,255,245);
     noStroke();
-    rect(width - width/11, height/11 +(id+1)*60-50, boardWidth/4,52);
+    rect(width - width*2/11, height/11 +(id+1)*60-50, width/4,52);
     stroke(0);
     fill(c);
-    text(money, width - width/11, height/11+ (id+1)*60);
+    text(name+ ": " + money, width - width*2/11, height/11+ (id+1)*60);
     textSize(11);
   }
 
@@ -97,6 +97,10 @@ public class Player {
   
   void goToJail() {
     inJail = true;
+  }
+  
+  String getName(){
+     return name; 
   }
   
   void addProperty(Property p) {

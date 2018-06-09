@@ -60,7 +60,7 @@ public class Property{
       if (ownerID == -1) {
         text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
       } else {
-        text("$" + "WIP rent", oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
+        text("$" + "WIP rent", oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
       }
     }
   }
