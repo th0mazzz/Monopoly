@@ -12,7 +12,7 @@ int numPlayers = 4;
 int turn;
 
 void setup() {
-  size(1100, 1100);
+  size(1100, 770);
   background(204, 255, 245);
 
   board = new Board();
