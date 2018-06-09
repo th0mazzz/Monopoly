@@ -114,7 +114,7 @@ void checkTile(int num) {
   if (!props[num].getSpecialStatus()){
      if(props[num].getOwnerID() == -1){
          String[] choices = {"Buy", "Auction"};
-         int response = JOptionPane.showOptionDialog(null, players.get(turn) + "\nWould you like to buy this property or auction?", "Unowned property!", 
+         int response = JOptionPane.showOptionDialog(null, players.get(turn) + "\nWould you like to buy "+props[num].getName()+" or auction it?", "Unowned property!", 
                                                   JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
          if(response == 0){
            getCurrentPlayer().changeMoney(-props[num].getCost());
@@ -127,9 +127,34 @@ void checkTile(int num) {
            for(int i = 0; i < numPlayers; i++){
              inAuction[i] = true; 
            }
-           int numOutofAuc = 0;
-           int playerNum = turn;
-           
+           int numInAuc = numPlayers;
+           int aucTurn = turn;
+           while(numInAuc > 1){
+             if(aucTurn >= numPlayers){
+                aucTurn = 0;
+             }  
+             System.out.println("aucTurn " + aucTurn);
+              if(inAuction[aucTurn]){
+                 String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.", "Auction!", JOptionPane.PLAIN_MESSAGE);
+                 if(aucResponse == null){
+                    inAuction[aucTurn] = false; 
+                    numInAuc--;
+                 }else{
+                    try{
+                       int bid = Integer.parseInt(aucResponse);
+                       if(bid > highestBid){
+                          highestBid = bid; 
+                       }
+                    }catch(NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has quit the auction.", "You entered non-integer value.", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                 }
+                 aucTurn++;
+              }
+           }
+         }
+         if(response == JOptionPane.CLOSED_OPTION){
+             //default to auction
          }
      }
   }
