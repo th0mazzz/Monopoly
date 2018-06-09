@@ -30,6 +30,8 @@ void setup() {
     int counter = 0;
     BufferedReader reader = createReader("properties.txt");
     String line = reader.readLine();
+    BufferedReader priceReader = createReader("prices.txt");
+    String priceLine = priceReader.readLine();
     while (line != null) {
       String[] tok = line.split(";");
       //Property(xcor, ycor, price, name, description, ownerID, color
@@ -38,8 +40,16 @@ void setup() {
         Integer.parseInt(tok[5]), 
         Integer.parseInt(tok[6]), Integer.parseInt(tok[7]));
         line = reader.readLine();
-        
-        
+        //price line reader thing here
+        String[] priceTok = priceLine.split(";");
+        props[counter].setBaseRent(Integer.parseInt(priceTok[0]));
+        props[counter].setRentOne(Integer.parseInt(priceTok[1]));
+        props[counter].setRentTwo(Integer.parseInt(priceTok[2]));
+        props[counter].setRentThree(Integer.parseInt(priceTok[3]));
+        props[counter].setRentFour(Integer.parseInt(priceTok[4]));
+        props[counter].setMortPrice(Integer.parseInt(priceTok[5]));
+        props[counter].setBuildingPrice(Integer.parseInt(priceTok[6]));
+        priceLine = priceReader.readLine();
         counter++;
     }
     

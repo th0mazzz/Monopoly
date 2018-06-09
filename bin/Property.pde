@@ -29,6 +29,15 @@ public class Property{
     isMort = false;
   }
   
+  public void setBaseRent(int num){baseRent = num;}
+  public void setRentOne(int num){rentOne = num;}
+  public void setRentTwo(int num){rentTwo = num;}
+  public void setRentThree(int num){rentThree = num;}
+  public void setRentFour(int num){rentFour = num;}
+  public void setRentHotel(int num){rentHotel = num;}
+  public void setMortPrice(int num){mortPrice = num;}
+  public void setBuildingPrice(int num){buildingPrice = num;}
+  
   public void display(){
     fill(_color);
     rectMode(CENTER);
