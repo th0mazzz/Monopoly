@@ -114,15 +114,16 @@ void checkTile(int num) {
   if (!props[num].getSpecialStatus()){
      if(props[num].getOwnerID() == -1){
          String[] choices = {"Buy", "Auction"};
-         int response = JOptionPane.showOptionDialog(null, players.get(turn) + "\nWould you like to buy "+props[num].getName()+" or auction it?", "Unowned property!", 
+         int response = JOptionPane.showOptionDialog(null, players.get(turn) + ",\nWould you like to buy "+props[num].getName()+" for $"+props[num].getValue()+" or auction it?\n"+
+                                                     "(Closing this window defaults to auction.)\n", "Unowned property!", 
                                                   JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
          if(response == 0){
            getCurrentPlayer().changeMoney(-props[num].getCost());
            fill(0);
            text(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height+height/16, height*3/4);
          }
-         if(response == 1){
-           int highestBid = 0;
+         int highestBid = 0;
+         if(response == 1 || response == JOptionPane.CLOSED_OPTION){
            boolean[] inAuction = new boolean[numPlayers];
            for(int i = 0; i < numPlayers; i++){
              inAuction[i] = true; 
@@ -135,27 +136,37 @@ void checkTile(int num) {
              }  
              System.out.println("aucTurn " + aucTurn);
               if(inAuction[aucTurn]){
-                 String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.", "Auction!", JOptionPane.PLAIN_MESSAGE);
+                 String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.\n"+
+                                                                   "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
+                                                                   "(Entering in a bid you cannot afford will result in automatic forfeiture.)\n"+
+                                                                   "(Entering in a bid less than the highest bid will result in automatic forfeiture.)"+"\n\nHighest Bid: "+highestBid,
+                                                                  "Auction!", JOptionPane.PLAIN_MESSAGE);
                  if(aucResponse == null){
                     inAuction[aucTurn] = false; 
                     numInAuc--;
                  }else{
                     try{
                        int bid = Integer.parseInt(aucResponse);
-                       if(bid > highestBid){
-                          highestBid = bid; 
+                       if(bid <= highestBid){
+                          JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because the bid was too little.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+                       }
+                       if(bid > players.get(aucTurn).getMoney()){
+                          JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" cannot\nafford the bid.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE); 
+                       }else{
+                         highestBid = bid; 
                        }
                     }catch(NumberFormatException e){
-                        JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has quit the auction.", "You entered non-integer value.", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                      JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because a non-integer value was entered.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+                      inAuction[aucTurn] = false;
+                      numInAuc--;
+                  }
                  }
                  aucTurn++;
               }
            }
          }
-         if(response == JOptionPane.CLOSED_OPTION){
-             //default to auction
-         }
+         getCurrentPlayer().changeMoney(-highestBid);
+         props[num].getCost();
      }
   }
   if (props[num].getName().equals("Chance")) {

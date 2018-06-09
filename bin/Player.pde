@@ -103,6 +103,10 @@ public class Player {
      return name; 
   }
   
+  int getMoney(){
+     return money; 
+  }
+  
   void addProperty(Property p) {
     properties.add(p);
   }
