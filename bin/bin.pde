@@ -1,4 +1,5 @@
 import java.io.*;
+import javax.swing.JOptionPane;
 
 Board board;
 ArrayList<Player> players;
@@ -102,6 +103,7 @@ void mouseClicked() {
 void checkTile(int num) {
   System.out.println(props[num]);
   if (props[num].getName().equals("Chance")) {
+    JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     chanceCards.action();
   }
   if (props[num].getName().equals("Community Chest")) {
