@@ -85,7 +85,7 @@ public class Chest {
       getCurrentPlayer().changeMoney(25);
     }
     if (id == 13) {
-      System.out.println("Houses and hotels are WIP");
+      /*           System.out.println("Houses and hotels are WIP");           */
       //getCurrentPlayer().changeMoney(-115*hotel-40*house);
     }
     if (id == 14) {

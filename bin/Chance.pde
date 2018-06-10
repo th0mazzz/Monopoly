@@ -33,8 +33,8 @@ public class Chance {
   
   void action() {
     int id = drawCard();
-    System.out.println(id);
-    System.out.println(cards.get(id));
+    //System.out.println(id);
+    //System.out.println(cards.get(id));
     JOptionPane.showMessageDialog(null, cards.get(id), "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     if (id == 0) {
       getCurrentPlayer().move(40-getCurrentPlayer().getCurrentTile()); 
@@ -105,7 +105,7 @@ public class Chance {
       getCurrentPlayer().move(num); 
     }
     if (id == 9) {
-      System.out.println("Houses and hotels are WIP");
+      /*         System.out.println("Houses and hotels are WIP");      */
       //getCurrentPlayer().changeMoney(-100*hotel-25*house);
     }
     if (id == 10) {
