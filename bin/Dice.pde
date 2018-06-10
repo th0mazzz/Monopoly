@@ -16,6 +16,7 @@
     stroke(0);
     image(loadImage("dice_"+l+".png"), width/2-75, height/2-25, 50, 50);
     image(loadImage("dice_"+r+".png"), width/2+25, height/2-25, 50, 50);
+    history.add(new HistoryText(players.get(turn)+" has rolled a " + (l+r), height*24/25));
     return l+r;
     //Testing chance/community
     /*

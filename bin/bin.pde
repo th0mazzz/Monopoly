@@ -16,8 +16,8 @@ int numPlayers = 4;
 int turn;
 int numRolled;
 
-void setup() {
-  size(1100, 770); //use some multiple of 1100 x 770
+void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 2310]
+  size(1100, 770); //use some multiple of 1100 x 770 cause the ratio width:height (10:7) should be kept
   background(204, 255, 245);
 
   board = new Board();
@@ -115,13 +115,15 @@ void draw() {
 }
 
 void mouseClicked() {
-  if (turn >= players.size()) {
-    turn = 0;
+  if(mouseX>height/11 && mouseX<height*7/11 && mouseY>height/11 && mouseY<height/7*11){
+    if (turn >= players.size()) {
+      turn = 0;
+    }
+    numRolled = dice.roll();
+    getCurrentPlayer().move(numRolled);
+    //getCurrentPlayer().printProperties();
+    turn++;
   }
-  numRolled = dice.roll();
-  getCurrentPlayer().move(numRolled);
-  //getCurrentPlayer().printProperties();
-  turn++;
 }
 
 void checkTile(int num) {
@@ -130,7 +132,7 @@ void checkTile(int num) {
     if (props[num].getOwnerID() == -1) {
       String[] choices = {"Buy", "Auction"};
       int response = JOptionPane.showOptionDialog(null, players.get(turn) + ",\nWould you like to buy "+props[num].getName()+" for $"+props[num].getValue()+" or auction it?\n"+
-        "(Closing this window defaults to auction.)\n", "Unowned property!", 
+        "(Closing this window defaults to auction.)\n", props[num].getName(), 
         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
       if (response == 0) {
         getCurrentPlayer().changeMoney(-props[num].getCost());
@@ -146,8 +148,8 @@ void checkTile(int num) {
         int numInAuc = numPlayers;
         int aucTurn = turn;
         while (numInAuc > 1) {
-          println("aucTurn " + aucTurn);
-          println("numInAuc " + numInAuc);
+          //println("aucTurn " + aucTurn);
+          //println("numInAuc " + numInAuc);
           if (inAuction[aucTurn]) {
             String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to forfeit   auction.\n"+
               "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
@@ -184,13 +186,14 @@ void checkTile(int num) {
             }
           }  
 
-          aucTurn++; //here is your issue with arrayOutOFBounds
+          aucTurn++;
           if (aucTurn >= numPlayers) {
             aucTurn = 0;
           }
         }
-        println("aucTurn: " + aucTurn);
-        println("numInAuc: " + numInAuc);
+        //println("aucTurn: " + aucTurn);
+        //println("numInAuc: " + numInAuc);
+        history.add(new HistoryText(players.get(turn)+" won the auction for "+ props[num].getName() +" with $"+highestBid, height*24/25));
         JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has won the auction with $" + highestBid, "Auction Winner!", JOptionPane.INFORMATION_MESSAGE);
         getCurrentPlayer().changeMoney(-highestBid);
         props[num].getCost();
@@ -198,14 +201,17 @@ void checkTile(int num) {
     }
   }
   if (props[num].getName().equals("Chance")) {
+    history.add(new HistoryText(players.get(turn)+" has landed on Chance!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     chanceCards.action();
   }
   if (props[num].getName().equals("Community Chest")) {
+    history.add(new HistoryText(players.get(turn)+" has landed on the Community Chest!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on the Community Chest!", "Community Chest!", JOptionPane.INFORMATION_MESSAGE);
     chestCards.action();
   }
   if (num == 30) {
+    history.add(new HistoryText(players.get(turn)+" went to jail!", height*24/25));
     getCurrentPlayer().move(20);
     getCurrentPlayer().goToJail();
     getCurrentPlayer().changeMoney(-200);

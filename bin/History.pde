@@ -19,8 +19,6 @@ public class History{
   
   void add(HistoryText t){
      for(HistoryText ht : history){
-       println("getYcor() " + ht.getYcor());
-       println("setYcor() " + (ht.getYcor() - y));
         ht.setYcor(ht.getYcor() - y); 
      }
      

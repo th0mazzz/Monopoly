@@ -78,21 +78,12 @@ public class Property{
     }
   }
   
-  boolean getSpecialStatus(){
-     return specialProp; 
-  }
+  boolean getSpecialStatus(){return specialProp; }
+  int getValue(){return value;}
+  int getOwnerID(){return ownerID; }
+  String getName(){return name;}
   
-  int getOwnerID(){
-     return ownerID; 
-  }
   
-  String getName() {
-    return name;
-  }
-  
-  int getValue(){
-     return value; 
-  }
   
   public String toString(){
     return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color+",\n"+specialProp; 

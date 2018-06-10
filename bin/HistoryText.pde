@@ -1,5 +1,5 @@
 public class HistoryText{
-  final int x = height+height/16;
+  final int x = height+height/32;
   final int y = height*24/25;
   
   int xcor, ycor;

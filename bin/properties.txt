@@ -9,12 +9,12 @@
 2;10;100;Vermont Ave;des;179;255;255;false
 1;10;120;Connecticut Ave;des;179;255;255;false
 0;10;0;In Jail/Visiting;des;255;255;255;true
-0;9;140;St.Charles Place;des;204;0;204;false
+0;9;140;St. Charles Place;des;204;0;204;false
 0;8;150;Electric Co.;des;216;216;192;true
 0;7;140;States Ave;des;204;0;204;false
 0;6;160;Virginia Ave;des;204;0;204;false
 0;5;200;Pennsylvania RR;des;245;245;239;true
-0;4;180;St.James Place;des;255;153;51;false
+0;4;180;St. James Place;des;255;153;51;false
 0;3;0;Community Chest;des;255;255;255;true
 0;2;180;Tennessee Ave;des;255;153;51;false
 0;1;200;NewYork Ave;des;255;153;51;false
