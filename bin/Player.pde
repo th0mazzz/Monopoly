@@ -74,7 +74,7 @@ public class Player {
   
   int payRent(){
     Property playerOn = props[getCurrentTile()];
-     if(playerOn.getOwnerID() != -1 && playerOn.getOwnerID() != id){
+     if(playerOn.getOwnerID() != -1){
        int transaction = 0;
        if(playerOn.getNumHotels() == 1){
          transaction = playerOn.getRentHotel();
@@ -102,6 +102,8 @@ public class Player {
           }
        }
        int propOwner = playerOn.getOwnerID();
+       println(playerOn.getName());
+       println(propOwner);
        players.get(propOwner).changeMoney(transaction);
        return transaction;
      }else{

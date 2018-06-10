@@ -204,8 +204,10 @@ void checkTile(int num) {
         props[num].getCost();
       }
     }else{ //if owned
-      int transaction = players.get(turn).payRent();
-      history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+      if(props[num].getOwnerID() != turn){
+        int transaction = players.get(turn).payRent();
+        history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+      }
     }
   }
   if (props[num].getName().equals("Chance")) {
