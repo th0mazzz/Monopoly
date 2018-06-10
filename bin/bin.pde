@@ -9,6 +9,7 @@ Dice dice;
 Property[] props = new Property[40];
 Chance chanceCards;
 Chest chestCards;
+History history;
 
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
@@ -25,6 +26,7 @@ void setup() {
   players = new ArrayList<Player>();
   chanceCards = new Chance();
   chestCards = new Chest();
+  history = new History();
 
   for (int i = 0; i < numPlayers; i++) {
     players.add(new Player(inputNames[i], i));
@@ -88,6 +90,10 @@ String printProps() {
 
 void draw() {
   board.display();
+  fill(204,255,245);
+  noStroke();
+  rect(height/11, height/11, height/22, height*9/11);
+  stroke(0);
   for (Property prop : props) {
     prop.display();
   }
@@ -95,6 +101,13 @@ void draw() {
     player.display(); 
     //System.out.println(printPlayers());
   }
+  rect(width*7/11+height/11, height/2, width*4/11, height/2); //"clears" history
+  fill(0);
+  textSize(20);
+  text("History", height + 2.5*(width - height)/6, height*27/50);
+  textSize(11);
+  history.display();
+  //printArray(history.history.peek());
 }
 
 void mouseClicked() {
@@ -118,7 +131,7 @@ void checkTile(int num) {
       if (response == 0) {
         getCurrentPlayer().changeMoney(-props[num].getCost());
         fill(0);
-        text(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height+height/16, height*3/4);
+        history.add(new HistoryText(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height*24/25));
       }
       int highestBid = 0;
       if (response == 1 || response == JOptionPane.CLOSED_OPTION) {
@@ -132,12 +145,12 @@ void checkTile(int num) {
           println("aucTurn " + aucTurn);
           println("numInAuc " + numInAuc);
           if (inAuction[aucTurn]) {
-            String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.\n"+
-                                                            "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
-                                                            "(Entering in a bid you cannot afford will result in automatic forfeiture.)\n"+
-                                                            "(Entering in a bid less than the highest bid will result in automatic forfeiture.)\n"+
-                                                            "(Closing this window results in automatic forfeiture."+"\n\nHighest Bid: "+highestBid, 
-                                                            "Auction!", JOptionPane.PLAIN_MESSAGE);
+            String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to forfeit   auction.\n"+
+              "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
+              "(Entering in a bid you cannot afford will result in automatic forfeiture.)\n"+
+              "(Entering in a bid less than the highest bid will result in automatic forfeiture.)\n"+
+              "(Closing this window results in automatic forfeiture."+"\n\nHighest Bid: "+highestBid, 
+              "Auction!", JOptionPane.PLAIN_MESSAGE);
             if (aucResponse == null) { //if you close the window
               JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" \nclosed the window.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
               inAuction[aucTurn] = false; 
