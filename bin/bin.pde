@@ -129,9 +129,6 @@ void checkTile(int num) {
            int numInAuc = numPlayers;
            int aucTurn = turn;
            while(numInAuc > 1){
-             if(aucTurn >= numPlayers){
-                aucTurn = 0;
-             }  
              System.out.println("aucTurn " + aucTurn);
               if(inAuction[aucTurn]){
                  String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.\n"+
@@ -165,10 +162,11 @@ void checkTile(int num) {
                       numInAuc--;
                   }
                  }
-                 
                    aucTurn++; //here is your issue with arrayOutOFBounds
-                 
-              }
+                    if(aucTurn >= numPlayers){
+                      aucTurn = 0;
+                    }  
+            }
            }
            println("aucTurn: " + aucTurn);
          JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has won the auction with $" + highestBid, "Auction Winner!", JOptionPane.INFORMATION_MESSAGE);
