@@ -17,7 +17,7 @@
 0;4;180;St. James Place;des;255;153;51;false
 0;3;0;Community Chest;des;255;255;255;true
 0;2;180;Tennessee Ave;des;255;153;51;false
-0;1;200;NewYork Ave;des;255;153;51;false
+0;1;200;New York Ave;des;255;153;51;false
 0;0;0;Free Parking;des;255;255;255;true
 1;0;220;Kentucky Ave;des;255;0;0;false
 2;0;0;Chance;des;255;255;255;true

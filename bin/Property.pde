@@ -1,6 +1,6 @@
 public class Property{
  final int boardWidth = height;
- final int oneSide = boardWidth / 11; //for 770x770, this is 77
+ final int oneSide = boardWidth / 11; //for 770x770, this is 70
   
  int xcor, ycor;
  int numHouses, numHotels;
@@ -31,14 +31,42 @@ public class Property{
     specialProp = special;
   }
   
-  public void setBaseRent(int num){baseRent = num;}
-  public void setRentOne(int num){rentOne = num;}
-  public void setRentTwo(int num){rentTwo = num;}
-  public void setRentThree(int num){rentThree = num;}
-  public void setRentFour(int num){rentFour = num;}
-  public void setRentHotel(int num){rentHotel = num;}
-  public void setMortPrice(int num){mortPrice = num;}
-  public void setBuildingPrice(int num){buildingPrice = num;}
+   void setBaseRent(int num){baseRent = num;}
+   void setRentOne(int num){rentOne = num;}
+   void setRentTwo(int num){rentTwo = num;}
+   void setRentThree(int num){rentThree = num;}
+   void setRentFour(int num){rentFour = num;}
+   void setRentHotel(int num){rentHotel = num;}
+   void setMortPrice(int num){mortPrice = num;}
+   void setBuildingPrice(int num){buildingPrice = num;}
+  
+  int getValue(){return value;}
+  int getBaseRent(){return baseRent;}
+  int getRentOne(){return rentOne;}
+  int getRentTwo(){return rentTwo;}
+  int getRentThree(){return rentThree;}
+  int getRentFour(){return rentFour;}
+  int getRentHotel(){return rentHotel;}
+  int getMortPrice(){return mortPrice;}
+  int getBuildingPrice(){return buildingPrice;}
+  
+  int getXcor(){return xcor;}
+  int getYcor(){return ycor;}
+  int getNumHouses(){return numHouses;}
+  int getNumHotels(){return numHotels;}
+  int getOwnerID(){return ownerID;}
+  String getName(){return name;}
+  String getDes(){return des;}
+  boolean getIsMort(){return isMort;}
+  boolean getSpecialStatus(){return specialProp;}
+  color getColor(){return _color;}
+  
+  String getOwnerName(){
+    if(ownerID != -1){
+      return players.get(ownerID).getName(); 
+    }
+    return "Unowned";
+  }
   
   public void display(){
     fill(_color);
@@ -78,10 +106,7 @@ public class Property{
     }
   }
   
-  boolean getSpecialStatus(){return specialProp; }
-  int getValue(){return value;}
-  int getOwnerID(){return ownerID; }
-  String getName(){return name;}
+  
   
   void action(){
      println("Action!!!"); 

@@ -115,7 +115,7 @@ void draw() {
 }
 
 void mouseClicked() {
-  if(mouseX>height/11 && mouseX<height*7/11 && mouseY>height/11 && mouseY<height/10*11){
+  if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
     if (turn >= players.size()) {
       turn = 0;
     }
@@ -125,14 +125,15 @@ void mouseClicked() {
     turn++;
   }else{
    if(mouseX>0 && mouseX<height*8/11 && mouseY>0 && mouseY<height){
-    
+     //build and stuff here
    }
   }
 }
 
 void checkTile(int num) {
   //System.out.println(props[num]);
-  if (!props[num].getSpecialStatus()) {
+  history.add(new HistoryText(players.get(turn)+" landed on "+props[num].getName(), height*24/25));
+  if (!props[num].getSpecialStatus() || num == 5 || num == 15 || num == 25 || num == 35 || num == 12 || num == 28) {
     if (props[num].getOwnerID() == -1) {
       String[] choices = {"Buy", "Auction"};
       int response = JOptionPane.showOptionDialog(null, players.get(turn) + ",\nWould you like to buy "+props[num].getName()+" for $"+props[num].getValue()+" or auction it?\n"+
@@ -202,6 +203,9 @@ void checkTile(int num) {
         getCurrentPlayer().changeMoney(-highestBid);
         props[num].getCost();
       }
+    }else{ //if owned
+      int transaction = players.get(turn).payRent();
+      history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
     }
   }
   if (props[num].getName().equals("Chance")) {

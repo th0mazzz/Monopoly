@@ -71,6 +71,44 @@ public class Player {
       yspeed = 0;
     }
   }
+  
+  int payRent(){
+    Property playerOn = props[getCurrentTile()];
+     if(playerOn.getOwnerID() != -1){
+       int transaction = 0;
+       if(playerOn.getNumHotels() == 1){
+         transaction = playerOn.getRentHotel();
+          changeMoney(-transaction);
+       }else{
+          if(playerOn.getNumHouses() == 0){
+            transaction = playerOn.getBaseRent();
+             changeMoney(-transaction);
+          }
+          if(playerOn.getNumHouses() == 1){
+            transaction = playerOn.getRentOne();
+             changeMoney(-transaction);
+          }
+          if(playerOn.getNumHouses() == 2){
+            transaction = playerOn.getRentTwo();
+             changeMoney(-transaction);
+          }
+          if(playerOn.getNumHouses() == 3){
+            transaction = playerOn.getRentThree();
+             changeMoney(-transaction);
+          }
+          if(playerOn.getNumHouses() == 4){
+            transaction = playerOn.getRentFour();
+             changeMoney(-transaction);
+          }
+       }
+       int propOwner = playerOn.getOwnerID();
+       players.get(propOwner).changeMoney(transaction);
+       return transaction;
+     }else{
+       return 0; 
+     }
+  }
+  
   void changeMoney(int num){
     money += num;
     if ( money < 0 ) {
