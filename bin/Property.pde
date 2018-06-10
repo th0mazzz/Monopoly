@@ -83,7 +83,9 @@ public class Property{
   int getOwnerID(){return ownerID; }
   String getName(){return name;}
   
-  
+  void action(){
+     println("Action!!!"); 
+  }
   
   public String toString(){
     return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color+",\n"+specialProp; 

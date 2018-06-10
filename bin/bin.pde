@@ -115,7 +115,7 @@ void draw() {
 }
 
 void mouseClicked() {
-  if(mouseX>height/11 && mouseX<height*7/11 && mouseY>height/11 && mouseY<height/7*11){
+  if(mouseX>height/11 && mouseX<height*7/11 && mouseY>height/11 && mouseY<height/10*11){
     if (turn >= players.size()) {
       turn = 0;
     }
@@ -123,6 +123,10 @@ void mouseClicked() {
     getCurrentPlayer().move(numRolled);
     //getCurrentPlayer().printProperties();
     turn++;
+  }else{
+   if(mouseX>0 && mouseX<height*8/11 && mouseY>0 && mouseY<height){
+    
+   }
   }
 }
 
