@@ -90,10 +90,12 @@ String printProps() {
 
 void draw() {
   board.display();
-  fill(204,255,245);
+  fill(204, 255, 245);
   noStroke();
   rect(height/11, height/11, height/22, height*9/11);
+  fill(204, 255, 245);
   stroke(0);
+  rect(width*7/11+height/11, 0, width*4/11, height/2);
   for (Property prop : props) {
     prop.display();
   }
@@ -101,12 +103,14 @@ void draw() {
     player.display(); 
     //System.out.println(printPlayers());
   }
+  fill(0, 0, 0);
   rect(width*7/11+height/11, height/2, width*4/11, height/2); //"clears" history
-  fill(0);
+  fill(255);
   textSize(20);
   text("History", height + 2.5*(width - height)/6, height*27/50);
   textSize(11);
   history.display();
+  fill(0);
   //printArray(history.history.peek());
 }
 
