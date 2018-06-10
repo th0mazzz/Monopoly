@@ -1,4 +1,4 @@
-import java.io.*;
+import java.io.*; //<>// //<>//
 import javax.swing.JOptionPane;
 
 final int boardWidth = height;
@@ -25,11 +25,11 @@ void setup() {
   players = new ArrayList<Player>();
   chanceCards = new Chance();
   chestCards = new Chest();
-  
+
   for (int i = 0; i < numPlayers; i++) {
-    players.add(new Player(inputNames[i],i));
+    players.add(new Player(inputNames[i], i));
   }
-  
+
   try {
     int counter = 0;
     BufferedReader reader = createReader("properties.txt");
@@ -43,20 +43,20 @@ void setup() {
       props[counter] = new Property(Integer.parseInt(tok[0]), Integer.parseInt(tok[1]), 
         Integer.parseInt(tok[2]), tok[3], tok[4], 
         Integer.parseInt(tok[5]), 
-        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]),
+        Integer.parseInt(tok[6]), Integer.parseInt(tok[7]), 
         Boolean.parseBoolean(tok[8]));
-        line = reader.readLine();
-        //price line reader thing here
-        String[] priceTok = priceLine.split(";");
-        props[counter].setBaseRent(Integer.parseInt(priceTok[0]));
-        props[counter].setRentOne(Integer.parseInt(priceTok[1]));
-        props[counter].setRentTwo(Integer.parseInt(priceTok[2]));
-        props[counter].setRentThree(Integer.parseInt(priceTok[3]));
-        props[counter].setRentFour(Integer.parseInt(priceTok[4]));
-        props[counter].setMortPrice(Integer.parseInt(priceTok[5]));
-        props[counter].setBuildingPrice(Integer.parseInt(priceTok[6]));
-        priceLine = priceReader.readLine();
-        counter++;
+      line = reader.readLine();
+      //price line reader thing here
+      String[] priceTok = priceLine.split(";");
+      props[counter].setBaseRent(Integer.parseInt(priceTok[0]));
+      props[counter].setRentOne(Integer.parseInt(priceTok[1]));
+      props[counter].setRentTwo(Integer.parseInt(priceTok[2]));
+      props[counter].setRentThree(Integer.parseInt(priceTok[3]));
+      props[counter].setRentFour(Integer.parseInt(priceTok[4]));
+      props[counter].setMortPrice(Integer.parseInt(priceTok[5]));
+      props[counter].setBuildingPrice(Integer.parseInt(priceTok[6]));
+      priceLine = priceReader.readLine();
+      counter++;
     }
     //System.out.println("the height is " + height);
     //System.out.println("but the boardWidth is " + boardWidth); //something is off
@@ -64,7 +64,7 @@ void setup() {
   catch(IOException e) {
     System.out.println("Something's wrong");
   }
-  
+
   //OUTPUT CODE TO SEE
   //System.out.println(printProps());
   //END
@@ -88,8 +88,8 @@ String printProps() {
 
 void draw() {
   board.display();
-  for(Property prop : props){
-    prop.display(); 
+  for (Property prop : props) {
+    prop.display();
   }
   for (Player player : players) {
     player.display(); 
@@ -109,72 +109,76 @@ void mouseClicked() {
 
 void checkTile(int num) {
   //System.out.println(props[num]);
-  if (!props[num].getSpecialStatus()){
-     if(props[num].getOwnerID() == -1){
-         String[] choices = {"Buy", "Auction"};
-         int response = JOptionPane.showOptionDialog(null, players.get(turn) + ",\nWould you like to buy "+props[num].getName()+" for $"+props[num].getValue()+" or auction it?\n"+
-                                                     "(Closing this window defaults to auction.)\n", "Unowned property!", 
-                                                  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
-         if(response == 0){
-           getCurrentPlayer().changeMoney(-props[num].getCost());
-           fill(0);
-           text(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height+height/16, height*3/4);
-         }
-         int highestBid = 0; //<>//
-         if(response == 1 || response == JOptionPane.CLOSED_OPTION){
-           boolean[] inAuction = new boolean[numPlayers];
-           for(int i = 0; i < numPlayers; i++){
-             inAuction[i] = true; 
-           }
-           int numInAuc = numPlayers;
-           int aucTurn = turn;
-           while(numInAuc > 1){
-             System.out.println("aucTurn " + aucTurn);
-              if(inAuction[aucTurn]){
-                 String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.\n"+
-                                                                   "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
-                                                                   "(Entering in a bid you cannot afford will result in automatic forfeiture.)\n"+
-                                                                   "(Entering in a bid less than the highest bid will result in automatic forfeiture.)\n"+
-                                                                   "(Closing this window results in automatic forfeiture."+"\n\nHighest Bid: "+highestBid,
-                                                                  "Auction!", JOptionPane.PLAIN_MESSAGE);
-                if(aucResponse == null){ //if you close the window
-                    JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" \nclosed the window.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+  if (!props[num].getSpecialStatus()) {
+    if (props[num].getOwnerID() == -1) {
+      String[] choices = {"Buy", "Auction"};
+      int response = JOptionPane.showOptionDialog(null, players.get(turn) + ",\nWould you like to buy "+props[num].getName()+" for $"+props[num].getValue()+" or auction it?\n"+
+        "(Closing this window defaults to auction.)\n", "Unowned property!", 
+        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+      if (response == 0) {
+        getCurrentPlayer().changeMoney(-props[num].getCost());
+        fill(0);
+        text(players.get(turn)+" has purchased "+props[num].getName()+" for $" + props[num].getValue(), height+height/16, height*3/4);
+      }
+      int highestBid = 0;
+      if (response == 1 || response == JOptionPane.CLOSED_OPTION) {
+        boolean[] inAuction = new boolean[numPlayers];
+        for (int i = 0; i < numPlayers; i++) {
+          inAuction[i] = true;
+        }
+        int numInAuc = numPlayers;
+        int aucTurn = turn;
+        while (numInAuc > 1) {
+          println("aucTurn " + aucTurn);
+          println("numInAuc " + numInAuc);
+          if (inAuction[aucTurn]) {
+            String aucResponse = JOptionPane.showInputDialog(null, players.get(aucTurn).getName()+", what is your bid? Press cancel to quit auction.\n"+
+                                                            "(Entering a non-integer value will result in automatic forfeiture of the auction.)\n"+
+                                                            "(Entering in a bid you cannot afford will result in automatic forfeiture.)\n"+
+                                                            "(Entering in a bid less than the highest bid will result in automatic forfeiture.)\n"+
+                                                            "(Closing this window results in automatic forfeiture."+"\n\nHighest Bid: "+highestBid, 
+                                                            "Auction!", JOptionPane.PLAIN_MESSAGE);
+            if (aucResponse == null) { //if you close the window
+              JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" \nclosed the window.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+              inAuction[aucTurn] = false; 
+              numInAuc--;
+            } else {
+              try {
+                int bid = Integer.parseInt(aucResponse);
+                if (bid <= highestBid) {
+                  JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because the bid was too little.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+                  inAuction[aucTurn] = false; 
+                  numInAuc--;
+                } else {
+                  if (bid > players.get(aucTurn).getMoney()) {
+                    JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" cannot\nafford the bid.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
                     inAuction[aucTurn] = false; 
                     numInAuc--;
-                 }else{
-                    try{
-                       int bid = Integer.parseInt(aucResponse);
-                       if(bid <= highestBid){
-                          JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because the bid was too little.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
-                          inAuction[aucTurn] = false; 
-                          numInAuc--;
-                       }
-                       if(bid > players.get(aucTurn).getMoney()){
-                          JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because "+players.get(aucTurn)+" cannot\nafford the bid.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
-                          inAuction[aucTurn] = false; 
-                          numInAuc--;
-                       }else{
-                         highestBid = bid; 
-                       }
-                    }catch(NumberFormatException e){
-                      JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because a non-integer value was entered.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
-                      inAuction[aucTurn] = false;
-                      numInAuc--;
+                  } else {
+                    highestBid = bid;
                   }
-                 }
-                   aucTurn++; //here is your issue with arrayOutOFBounds
-                    if(aucTurn >= numPlayers){
-                      aucTurn = 0;
-                    }  
+                }
+              }
+              catch(NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has forfeited the auction because a non-integer value was entered.", "Forfeit Auction", JOptionPane.INFORMATION_MESSAGE);
+                inAuction[aucTurn] = false;
+                numInAuc--;
+              }
             }
-           }
-           println("aucTurn: " + aucTurn);
-         JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has won the auction with $" + highestBid, "Auction Winner!", JOptionPane.INFORMATION_MESSAGE);
-         getCurrentPlayer().changeMoney(-highestBid);
-         props[num].getCost(); //<>//
-         }
-         
-     }
+          }  
+
+          aucTurn++; //here is your issue with arrayOutOFBounds
+          if (aucTurn >= numPlayers) {
+            aucTurn = 0;
+          }
+        }
+        println("aucTurn: " + aucTurn);
+        println("numInAuc: " + numInAuc);
+        JOptionPane.showMessageDialog(null, players.get(aucTurn) + " has won the auction with $" + highestBid, "Auction Winner!", JOptionPane.INFORMATION_MESSAGE);
+        getCurrentPlayer().changeMoney(-highestBid);
+        props[num].getCost();
+      }
+    }
   }
   if (props[num].getName().equals("Chance")) {
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
@@ -192,5 +196,5 @@ void checkTile(int num) {
 }
 
 Player getCurrentPlayer() {
-   return players.get(turn); 
+  return players.get(turn);
 }
