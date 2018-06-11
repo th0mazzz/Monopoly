@@ -111,11 +111,20 @@ void draw() {
   text("History", height + 2.5*(width - height)/6, height*27/50);
   textSize(11);
   history.display();
+  fill(204,255,245);
+  noStroke();
+  rect(height+2, 0, width-height, height/22);
   fill(0);
+  textSize(20);
+  text("Turn: " + getCurrentPlayer().getName(), (height+width)/3 + height/4, height/22);
+  stroke(0);
+  textSize(11);
   //printArray(history.history.peek());
 }
 
-void mouseClicked() {
+void mouseClicked() { //<>//
+  
+    println(turn);
   if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
     if (turn >= players.size()) {
       turn = 0;
@@ -123,12 +132,29 @@ void mouseClicked() {
     numRolled = dice.roll();
     getCurrentPlayer().move(numRolled);
     //getCurrentPlayer().printProperties();
-    turn++;
+     turn++;    
   }else{
-   if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height && mouseY){
+   if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height || mouseY>0 && mouseY<oneSide || mouseY>oneSide*10 && mouseY<height){
+      int mx = mouseX / (height/11);
+      int my = mouseY / (height/11);
+      int propNum = -1;
+      int index = 0;
+      for(Property p : props){
+        if(p.getXcor() == mx && p.getYcor() == my){
+         propNum = index;
+        }
+        index++;
+      }
+      String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+      int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
+        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
      //build and stuff here
+     if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+        getCurrentPlayer().buildHouse(props[propNum]); 
+     }
    }
   }
+  //<>//
 }
 
 void checkTile(int num) {
@@ -230,5 +256,9 @@ void checkTile(int num) {
 }
 
 Player getCurrentPlayer() {
+  if(turn>=numPlayers){
+     turn = 0; 
+  }
+  println("t"+turn);
   return players.get(turn);
 }
