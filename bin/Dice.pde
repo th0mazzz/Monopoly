@@ -9,7 +9,7 @@
   int roll() {
     l = int(random(6)+1);
     r = int(random(6)+1);
-    l = r;
+    //l = r;
     fill(204,255,245);
     noStroke();
     rect((width-offset)/2-75, height/2-25,50,50);
