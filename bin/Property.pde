@@ -89,13 +89,39 @@ public class Property{
     return false;
   }
   
+  boolean addHotel(){
+    if(numHotels == 0 && numHouses == 4){
+       numHotels++; 
+       numHouses = 0;
+       players.get(ownerID).changeMoney(-getBuildingPrice());
+       return true;
+    }
+    return false;
+  }
+  
+  boolean rmHotel(){
+     if(numHotels == 1){
+        numHotels--;
+        numHouses = 4;
+        players.get(ownerID).changeMoney(getBuildingPrice()/2);
+        return true;
+     }
+     return false;
+  }
+  
   int determineRent(){
-     if(numHouses == 0){return baseRent;}
+     if(numHouses == 0){
+       if(numHotels == 1){
+        return rentHotel; 
+       }else{
+         return baseRent;
+       }
+     }
      if(numHouses == 1){return rentOne;}
      if(numHouses == 2){return rentTwo;}
      if(numHouses == 3){return rentThree;}
      if(numHouses == 4){return rentFour;}
-     else{return rentHotel;}
+     return -1;
   }
   
   public void display(){
@@ -107,12 +133,20 @@ public class Property{
          fill(255);
          triangle(oneSide*7/8, oneSide*getYcor()+oneSide*house/4, oneSide*6/8, oneSide*getYcor()+oneSide*(house+1)/4, oneSide, oneSide*getYcor()+oneSide*(house+1)/4);
        }
+       if(numHotels == 1){
+         fill(255);
+         ellipse(oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide/4);
+       }
     }
     if(xcor == 10 && ycor != 0 && ycor != 10){
        rect(boardWidth-oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide);
        for(int house = 0; house < numHouses; house++){
          fill(255);
          triangle(boardWidth-oneSide*7/8, oneSide*getYcor()+oneSide*house/4, oneSide*getXcor(), oneSide*getYcor()+oneSide*(house+1)/4, oneSide*getXcor()+oneSide/4, oneSide*getYcor()+oneSide*(house+1)/4);
+       }
+       if(numHotels == 1){
+         fill(255);
+         ellipse(boardWidth-oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide/4);
        }
     }
     if(ycor == 0 && xcor != 0 && xcor != 10){
@@ -121,6 +155,10 @@ public class Property{
          fill(255);  
          triangle(oneSide*getXcor()+ oneSide*(house *2 +1)/8 , oneSide*3/4, oneSide*getXcor()+ oneSide*house/4, oneSide, oneSide*getXcor()+ oneSide*(house+1)/4, oneSide);
        }
+       if(numHotels == 1){
+         fill(255);
+         ellipse(oneSide/2 + oneSide*xcor, oneSide*7/8, oneSide/4, oneSide/4);
+       }
     }
     if(ycor == 10 && xcor != 0 && xcor != 10){
        rect(oneSide/2 + oneSide*xcor, height-oneSide*7/8, oneSide, oneSide/4); 
@@ -128,12 +166,16 @@ public class Property{
          fill(255);  
          triangle(oneSide*getXcor()+ oneSide*(house *2 +1)/8 , height-oneSide, oneSide*getXcor()+ oneSide*house/4, height-oneSide+.25*oneSide, oneSide*getXcor()+ oneSide*(house+1)/4, height-oneSide+.25*oneSide);
        }
+       if(numHotels == 1){
+         fill(255);
+         ellipse(oneSide/2 + oneSide*xcor, boardWidth - oneSide*7/8, oneSide/4, oneSide/4);
+       }
     }
     if(ownerID != -1){
       try{
       fill(players.get(ownerID).getColor());
       rect(oneSide*(getXcor()+1) - .5*oneSide, oneSide*(getYcor()+1) - .5*oneSide, 25, 25);
-      }catch(ArrayIndexOutOfBoundsException e){
+      }catch(IndexOutOfBoundsException e){
         setOwnerID(-1);
       }
       

@@ -96,12 +96,17 @@ public class Player {
           changeMoney(-transaction);
        }else{
           if(playerOn.getNumHouses() == 0){
-            if(players.get(playerOn.getOwnerID()).checkMono(playerOn)){
-               transaction = playerOn.getBaseRent()*2;
+            if(playerOn.getNumHotels() == 0){
+              if(players.get(playerOn.getOwnerID()).checkMono(playerOn)){
+                 transaction = playerOn.getBaseRent()*2;
+                 changeMoney(-transaction);
+              }
+              transaction = playerOn.getBaseRent();
+               changeMoney(-transaction);
+            }else{
+              transaction = playerOn.getRentHotel();
                changeMoney(-transaction);
             }
-            transaction = playerOn.getBaseRent();
-             changeMoney(-transaction);
           }
           if(playerOn.getNumHouses() == 1){
             transaction = playerOn.getRentOne();
@@ -136,6 +141,14 @@ public class Player {
   
   boolean sellHouse(Property p){
      return p.rmHouse(); 
+  }
+  
+  boolean buildHotel(Property p){
+    return p.addHotel();
+  }
+  
+  boolean sellHotel(Property p){
+    return p.rmHotel();
   }
   
   void changeMoney(int num){

@@ -56,7 +56,7 @@ void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 231
       props[counter].setRentTwo(Integer.parseInt(priceTok[2]));
       props[counter].setRentThree(Integer.parseInt(priceTok[3]));
       props[counter].setRentFour(Integer.parseInt(priceTok[4]));
-      props[counter].setMortPrice(Integer.parseInt(priceTok[5]));
+      props[counter].setRentHotel(Integer.parseInt(priceTok[5]));
       props[counter].setBuildingPrice(Integer.parseInt(priceTok[6]));
       priceLine = priceReader.readLine();
       counter++;
@@ -144,7 +144,7 @@ void mouseClicked() { //<>//
         index++;
       }
       if(propNum != -1){
-          String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+          String[] choices = {"Build House", "Sell House", "Build Hotel", "Sell Hotel", "Mortgage", "Unmortgage"};
           int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
          //build and stuff here
@@ -154,10 +154,16 @@ void mouseClicked() { //<>//
          if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
             getCurrentPlayer().sellHouse(props[propNum]); 
          }
-         if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 0){
+         if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 4 && props[propNum].getNumHotels() == 0){ //build hotel
+            getCurrentPlayer().buildHotel(props[propNum]);
+         }
+         if(response == 3 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHotels() == 1){ //sell hotel
+            getCurrentPlayer().sellHotel(props[propNum]);
+         }
+         if(response == 4 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 0){
             props[propNum].setMort(true); 
          }
-         if(response == 3 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+         if(response == 5 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
             props[propNum].setMort(false); 
          }
          //MORTGAGE AND UNMORTGAGE!!!
