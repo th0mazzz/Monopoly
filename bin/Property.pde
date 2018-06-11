@@ -129,8 +129,13 @@ public class Property{
        }
     }
     if(ownerID != -1){
+      try{
       fill(players.get(ownerID).getColor());
       rect(oneSide*(getXcor()+1) - .5*oneSide, oneSide*(getYcor()+1) - .5*oneSide, 25, 25);
+      }catch(ArrayIndexOutOfBoundsException e){
+        setOwnerID(-1);
+      }
+      
     }
     rectMode(CORNER);
     fill(0);

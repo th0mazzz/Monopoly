@@ -236,13 +236,14 @@ void checkTile(int num) {
       }
     }else{ //if owned
       if(props[num].getOwnerID() != turn){
-        if(num != 5 && num!= 15 || num!=25 || num!=35){ //if not RR
+        if(num != 5 && num!= 15 && num!=25 && num!=35){ //if not RR
           int transaction = players.get(turn).payRent();
           history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
         }else{
-          int transaction = 25 * players.get(props[num].getOwnerID()).getRrSize();
+          int transaction = (int)(25 * pow(2, players.get(props[num].getOwnerID()).getRrSize() - 1));
           println(transaction);
           getCurrentPlayer().changeMoney(-transaction);
+          history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
         }
       }
     }
