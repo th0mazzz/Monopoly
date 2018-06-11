@@ -2,6 +2,7 @@ import java.io.*; //<>// //<>//
 import javax.swing.JOptionPane;
 
 final int boardWidth = height;
+final int oneSide = height/11;
 
 Board board;
 ArrayList<Player> players;
@@ -124,7 +125,7 @@ void mouseClicked() {
     //getCurrentPlayer().printProperties();
     turn++;
   }else{
-   if(mouseX>0 && mouseX<height*8/11 && mouseY>0 && mouseY<height){
+   if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height && mouseY){
      //build and stuff here
    }
   }
