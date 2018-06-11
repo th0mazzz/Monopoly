@@ -123,9 +123,7 @@ void draw() {
 }
 
 void mouseClicked() { //<>//
-  
-    println(turn);
-  if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
+    if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
     if (turn >= players.size()) {
       turn = 0;
     }
@@ -145,17 +143,19 @@ void mouseClicked() { //<>//
         }
         index++;
       }
-      String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
-      int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
-        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
-     //build and stuff here
-     if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
-        getCurrentPlayer().buildHouse(props[propNum]); 
-     }
-     if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
-        getCurrentPlayer().sellHouse(props[propNum]); 
-     }
-     //MORTGAGE AND UNMORTGAGE!!!
+      if(propNum != -1){
+          String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+          int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+         //build and stuff here
+         if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
+            getCurrentPlayer().buildHouse(props[propNum]); 
+         }
+         if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+            getCurrentPlayer().sellHouse(props[propNum]); 
+         }
+         //MORTGAGE AND UNMORTGAGE!!!
+      }
    }
   }
   //<>//
@@ -236,8 +236,14 @@ void checkTile(int num) {
       }
     }else{ //if owned
       if(props[num].getOwnerID() != turn){
-        int transaction = players.get(turn).payRent();
-        history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+        if(num != 5 && num!= 15 || num!=25 || num!=35){ //if not RR
+          int transaction = players.get(turn).payRent();
+          history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+        }else{
+          int transaction = 25 * players.get(props[num].getOwnerID()).getRrSize();
+          println(transaction);
+          getCurrentPlayer().changeMoney(-transaction);
+        }
       }
     }
   }
@@ -263,6 +269,5 @@ Player getCurrentPlayer() {
   if(turn>=numPlayers){
      turn = 0; 
   }
-  println("t"+turn);
   return players.get(turn);
 }
