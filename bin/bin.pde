@@ -16,6 +16,7 @@ String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
 int numRolled;
+boolean defaultOption;
 
 void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 2310]
   size(1100, 770); //use some multiple of 1100 x 770 cause the ratio width:height (10:7) should be kept
@@ -28,10 +29,36 @@ void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 231
   chanceCards = new Chance();
   chestCards = new Chest();
   history = new History();
-
-  for (int i = 0; i < numPlayers; i++) {
-    players.add(new Player(inputNames[i], i));
+  try {
+    numPlayers = Integer.parseInt(JOptionPane.showInputDialog("Enter number of players. Ex.- 4"));
+  } catch (Exception e) {
+    numPlayers = Integer.parseInt(JOptionPane.showInputDialog("Enter a valid number or risk crash!!"));
   }
+  inputNames = new String[numPlayers];
+  for (int playerNum = 0; playerNum < numPlayers; playerNum++) {
+    inputNames[playerNum] = JOptionPane.showInputDialog("Enter name of Player" + (playerNum+1));
+  }
+ 
+  if (JOptionPane.showConfirmDialog(null, "Default", "Customize", JOptionPane.YES_NO_OPTION) == 0) {
+    defaultOption = true;
+  } else {
+    defaultOption = false;
+  }
+  int money;
+  if (!defaultOption) {
+    try {
+      money = Integer.parseInt(JOptionPane.showInputDialog("Enter the starting amount of money. Ex.- 1500"));
+    } catch (Exception e) {
+      money = Integer.parseInt(JOptionPane.showInputDialog("Enter a valid number or risk crash!!"));
+    } 
+  } else {
+    money = 1500;
+  }
+  
+  for (int i = 0; i < numPlayers; i++) {
+    players.add(new Player(inputNames[i], i, money));
+  }
+
 
   try {
     int counter = 0;
@@ -263,6 +290,6 @@ Player getCurrentPlayer() {
   if(turn>=numPlayers){
      turn = 0; 
   }
-  println("t"+turn);
+  //println("t"+turn);
   return players.get(turn);
 }

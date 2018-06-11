@@ -1,6 +1,8 @@
 import javax.swing.JOptionPane;
 public class Player {
   final int boardWidth = height;
+  final int offset = width - height;
+  int textWidth, textHeight;
   
   int counter, money, jailCounter,tileID, id;
   color c;
@@ -12,17 +14,26 @@ public class Player {
   Property[] redMono, orangeMono, yellowMono, greenMono, liblueMono, dkblueMono, purpleMono, brownMono, rrMono, utilMono;
   int redSize, orangeSize, yellowSize, greenSize, liblueSize, dkblueSize, purpleSize, brownSize, rrSize, utilSize;
   
+  
 
-  Player(String nombre, int num) {
+  Player(String nombre, int num, int _money) {
     x = 21*boardWidth/22;
     y = 21*height/22;
     xspeed = -boardWidth/11;
     yspeed = 0;
     id = num;
     name = nombre;
-    money = 1500;
+    money = _money;
     properties = new ArrayList<Property>();
     c = color(random(255), random(255), random(255));
+    
+    if (id < numPlayers/2) {
+      textWidth = width - offset + offset/5;
+    } else {
+      textWidth = width - offset + 3*offset/5;
+    }
+    
+    textHeight = height/11 + ((id+1)%(numPlayers/2))*60;
     
     redMono = new Property[3];
     orangeMono = new Property[3];
@@ -44,10 +55,10 @@ public class Player {
     textSize(20);
     fill(204,255,245);
     noStroke();
-    rect(width - width*2/11, height/11 +(id+1)*60-50, width/4,52);
+    rect(textWidth, textHeight - 50, offset/4,52);
     stroke(0);
     fill(c);
-    text(name+ ": " + money, width - width*2/11, height/11+ (id+1)*60);
+    text(name+ ": " + money, textWidth, textHeight);
     textSize(11);
   }
 
