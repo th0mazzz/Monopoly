@@ -121,7 +121,7 @@ void mouseClicked() {
     }
     numRolled = dice.roll();
     getCurrentPlayer().move(numRolled);
-    //getCurrentPlayer().printProperties();
+    getCurrentPlayer().printProperties();
     turn++;
   }else{
    if(mouseX>0 && mouseX<height*8/11 && mouseY>0 && mouseY<height){

@@ -9,6 +9,9 @@ public class Player {
   float x, y;
   float xspeed, yspeed;
   ArrayList<Property> properties;
+  Property[] redMono, orangeMono, yellowMono, greenMono, liblueMono, dkblueMono, purpleMono, brownMono, rrMono, utilMono;
+  int redSize, orangeSize, yellowSize, greenSize, liblueSize, dkblueSize, purpleSize, brownSize, rrSize, utilSize;
+  
 
   Player(String nombre, int num) {
     x = 21*boardWidth/22;
@@ -20,6 +23,18 @@ public class Player {
     money = 1500;
     properties = new ArrayList<Property>();
     c = color(random(255), random(255), random(255));
+    
+    redMono = new Property[3];
+    orangeMono = new Property[3];
+    yellowMono = new Property[3];
+    greenMono = new Property[3];
+    liblueMono = new Property[3];
+    dkblueMono = new Property[2];
+    purpleMono = new Property[3];
+    brownMono = new Property[2];
+    rrMono = new Property[4];
+    utilMono = new Property[2];
+   
   }
 
   void display() {
@@ -81,6 +96,10 @@ public class Player {
           changeMoney(-transaction);
        }else{
           if(playerOn.getNumHouses() == 0){
+            if(1 == 0 /*if MONOPOLY*/){
+               transaction = playerOn.getBaseRent()*2;
+               changeMoney(-transaction);
+            }
             transaction = playerOn.getBaseRent();
              changeMoney(-transaction);
           }
@@ -102,8 +121,8 @@ public class Player {
           }
        }
        int propOwner = playerOn.getOwnerID();
-       println(playerOn.getName());
-       println(propOwner);
+       //println(playerOn.getName());
+       //println(propOwner);
        players.get(propOwner).changeMoney(transaction);
        return transaction;
      }else{
@@ -127,9 +146,7 @@ public class Player {
     }
   }
   
-  int getCurrentTile() {
-    return tileID;
-  }
+  int getCurrentTile() {return tileID;}
   
   void getJailCard() {
     haveJailCard = true;
@@ -139,17 +156,57 @@ public class Player {
     inJail = true;
   }
   
-  String getName(){
-     return name; 
-  }
-  
-  int getMoney(){
-     return money; 
-  }
+  String getName(){return name;}
+  int getMoney(){return money;}
   
   void addProperty(Property p) {
     properties.add(p);
+    addToMono(p);
   }
+  
+  void addToMono(Property p){
+    if(p.getColor() == -65536){
+      redMono[redSize] = p;
+      redSize++;
+    }
+    if(p.getColor() == -26317){
+      orangeMono[orangeSize] = p;
+      orangeSize++;
+    }
+    if(p.getColor() == -256){
+      yellowMono[yellowSize] = p;
+      yellowSize++;
+    }
+    if(p.getColor() == -16711936){
+      greenMono[greenSize] = p;
+      greenSize++;
+    }
+    if(p.getColor() == -4980737){
+      liblueMono[liblueSize] = p;
+      liblueSize++;
+    }
+    if(p.getColor() == -16776961){
+      dkblueMono[dkblueSize] = p;
+      dkblueSize++;
+    }
+    if(p.getColor() == -3407668){
+      purpleMono[purpleSize] = p;
+      purpleSize++;
+    }
+    if(p.getColor() == -10079488){
+      brownMono[brownSize] = p;
+      brownSize++;
+    }
+    if(p.getColor() == -657937){
+      rrMono[rrSize] = p;
+      rrSize++;
+    }
+    if(p.getColor() == -2565952){
+      utilMono[utilSize] = p;
+      utilSize++;
+    }
+  }
+  
   //temp
   void printProperties() {
     for (Property p : properties) {
