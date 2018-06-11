@@ -1,4 +1,4 @@
-import java.io.*; //<>// //<>//
+import java.io.*; 
 import javax.swing.JOptionPane;
 
 final int boardWidth = height;
@@ -15,7 +15,10 @@ History history;
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
+boolean sameNum;
+int doubleCounter;
 int numRolled;
+boolean defaultOption, canRoll;
 
 void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 2310]
   size(1100, 770); //use some multiple of 1100 x 770 cause the ratio width:height (10:7) should be kept
@@ -28,10 +31,38 @@ void setup() { //other sizes you can use: [550 x 385], [2200 x 1540], [3300, 231
   chanceCards = new Chance();
   chestCards = new Chest();
   history = new History();
-
-  for (int i = 0; i < numPlayers; i++) {
-    players.add(new Player(inputNames[i], i));
+  canRoll = true;
+  
+  try {
+    numPlayers = Integer.parseInt(JOptionPane.showInputDialog("Enter number of players. Ex.- 4"));
+  } catch (Exception e) {
+    numPlayers = Integer.parseInt(JOptionPane.showInputDialog("Enter a valid number or risk crash!!"));
   }
+  inputNames = new String[numPlayers];
+  for (int playerNum = 0; playerNum < numPlayers; playerNum++) {
+    inputNames[playerNum] = JOptionPane.showInputDialog("Enter name of Player" + (playerNum+1));
+  }
+ 
+  if (JOptionPane.showConfirmDialog(null, "Default", "Customize", JOptionPane.YES_NO_OPTION) == 0) {
+    defaultOption = true;
+  } else {
+    defaultOption = false;
+  }
+  int money;
+  if (!defaultOption) {
+    try {
+      money = Integer.parseInt(JOptionPane.showInputDialog("Enter the starting amount of money. Ex.- 1500"));
+    } catch (Exception e) {
+      money = Integer.parseInt(JOptionPane.showInputDialog("Enter a valid number or risk crash!!"));
+    } 
+  } else {
+    money = 1500;
+  }
+  
+  for (int i = 0; i < numPlayers; i++) {
+    players.add(new Player(inputNames[i], i, money));
+  }
+
 
   try {
     int counter = 0;
@@ -122,15 +153,66 @@ void draw() {
   //printArray(history.history.peek());
 }
 
-void mouseClicked() { //<>//
-    if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
+void mouseClicked() { 
+  boolean jailDouble = false;
+    //println(turn);
+  if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
     if (turn >= players.size()) {
       turn = 0;
     }
-    numRolled = dice.roll();
-    getCurrentPlayer().move(numRolled);
+    if (getCurrentPlayer().isInJail() && getCurrentPlayer().getJailCounter() != 3) {
+    String[] options = {"Pay $50", "Try to roll a double"}; 
+     if (getCurrentPlayer().jailCard()) {
+      String[] temp = {"Pay $50", "Try to roll a double", "Use Get out of Jail Card"}; 
+      options = temp;
+     }
+     int choice =  JOptionPane.showOptionDialog(null, "Choose", "Warning",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, options, options[0]);
+     if (choice == 0) {
+       getCurrentPlayer().payJailFee();
+     }
+     if (choice == 2) {
+       getCurrentPlayer().useJailCard();
+     }
+     if (choice == 1) {
+       jailDouble = true;
+     }
+  }
+    if (canRoll) {
+      numRolled = dice.roll();
     //getCurrentPlayer().printProperties();
-     turn++;    
+    if (sameNum) {
+      if (jailDouble) {
+        getCurrentPlayer().move(numRolled);
+        sameNum = false;
+        canRoll = false;
+        //turn++;        
+      } else {
+        doubleCounter++;
+        if (doubleCounter == 3) {
+          int num = 10-getCurrentPlayer().getCurrentTile();
+          if (num < 0) {
+            num+= 40;
+          }
+          if (num > 10) {
+            getCurrentPlayer().changeMoney(-200);
+          }
+          getCurrentPlayer().goToJail(); 
+          getCurrentPlayer().move(num);
+        }
+        getCurrentPlayer().move(numRolled);
+      }
+    } else {
+      sameNum = false;
+      doubleCounter = 0;
+      getCurrentPlayer().move(numRolled);
+      canRoll = false;
+      //turn++;    
+    }
+    } else {
+      canRoll = true;
+      JOptionPane.showMessageDialog(null, getCurrentPlayer() + " ended their turn", "End Turn", JOptionPane.INFORMATION_MESSAGE);
+      turn++;
+    }
   }else{
    if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height || mouseY>0 && mouseY<oneSide || mouseY>oneSide*10 && mouseY<height){
       int mx = mouseX / (height/11);
@@ -143,15 +225,21 @@ void mouseClicked() { //<>//
         }
         index++;
       }
+<<<<<<< HEAD
       if(propNum != -1){
           String[] choices = {"Build House", "Sell House", "Build Hotel", "Sell Hotel", "Mortgage", "Unmortgage"};
+=======
+      // property tiles
+      if(propNum != -1 && !props[propNum].getSpecialStatus()){
+          String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+>>>>>>> 1c3340ad18fb8d40db659274baa38088ce06e517
           int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
          //build and stuff here
-         if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
+         if(response == 0 && turn == props[propNum].getOwnerID() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
             getCurrentPlayer().buildHouse(props[propNum]); 
          }
-         if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+         if(response == 1 && turn == props[propNum].getOwnerID() ){
             getCurrentPlayer().sellHouse(props[propNum]); 
          }
          if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 4 && props[propNum].getNumHotels() == 0){ //build hotel
@@ -167,10 +255,27 @@ void mouseClicked() { //<>//
             props[propNum].setMort(false); 
          }
          //MORTGAGE AND UNMORTGAGE!!!
+         if (response == 2 && turn == props[propNum].getOwnerID() ){
+           props[propNum].mortgage();
+         }
+         if (response == 3 && turn == props[propNum].getOwnerID() ){
+           props[propNum].unMortgage();
+         }
+      }
+      // other tiles 
+      if (index == 5 || index == 15 || index == 25 || index == 35 || index == 12 || index == 28) {
+        String[] choices = {"Mortgage", "Unmortgage"};
+          int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+        if (response == 0 && turn == props[propNum].getOwnerID() ){
+           props[propNum].mortgage();
+         }
+         if (response == 1 && turn == props[propNum].getOwnerID() ){
+           props[propNum].unMortgage();
+         }
       }
    }
   }
-  //<>//
 }
 
 void checkTile(int num) {
@@ -287,6 +392,14 @@ void checkTile(int num) {
     getCurrentPlayer().move(20);
     getCurrentPlayer().goToJail();
     getCurrentPlayer().changeMoney(-200);
+  }
+}
+// doesn't work :(
+void keyReleased() {
+  if (key == 'G') {
+    turn++;
+    canRoll = true;
+    JOptionPane.showMessageDialog(null, getCurrentPlayer() + " ended their turn", "End Turn", JOptionPane.INFORMATION_MESSAGE);
   }
 }
 
