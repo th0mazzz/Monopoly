@@ -259,13 +259,6 @@ public class Player {
   //we don't need checkers for RR or util b/c their rent is based on numbers, not if there is mono
   //plus you can't build on them anyway
   
-  //temp
-  void printProperties() {
-    for (Property p : properties) {
-      System.out.println(p);
-    }
-  }
-  
   String toString() {
     return name;
   }
