@@ -7,8 +7,8 @@
   }
   
   int roll() {
-    l = int(random(6)+1);
-    r = int(random(6)+1);
+    l = Integer.parseInt(JOptionPane.showInputDialog("Left: 1-6"));//int(random(6)+1);
+    r = Integer.parseInt(JOptionPane.showInputDialog("Right1-6"));;//int(random(6)+1);
     //l = r;
     fill(204,255,245);
     noStroke();
