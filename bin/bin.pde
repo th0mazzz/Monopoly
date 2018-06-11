@@ -1,4 +1,4 @@
-import java.io.*; //<>// //<>//
+import java.io.*; 
 import javax.swing.JOptionPane;
 
 final int boardWidth = height;
@@ -151,7 +151,7 @@ void draw() {
   //printArray(history.history.peek());
 }
 
-void mouseClicked() { //<>//
+void mouseClicked() { 
   boolean jailDouble = false;
     //println(turn);
   if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
@@ -216,20 +216,21 @@ void mouseClicked() { //<>//
         }
         index++;
       }
-      String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
-      int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
-        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
-     //build and stuff here
-     if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
-        getCurrentPlayer().buildHouse(props[propNum]); 
-     }
-     if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
-        getCurrentPlayer().sellHouse(props[propNum]); 
-     }
-     //MORTGAGE AND UNMORTGAGE!!!
+      if(propNum != -1){
+          String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+          int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
+            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
+         //build and stuff here
+         if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
+            getCurrentPlayer().buildHouse(props[propNum]); 
+         }
+         if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+            getCurrentPlayer().sellHouse(props[propNum]); 
+         }
+         //MORTGAGE AND UNMORTGAGE!!!
+      }
    }
   }
-  //<>//
 }
 
 void checkTile(int num) {
@@ -307,18 +308,35 @@ void checkTile(int num) {
       }
     }else{ //if owned
       if(props[num].getOwnerID() != turn){
-        int transaction = players.get(turn).payRent();
-        history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+        if(num != 5 && num!= 15 && num!=25 && num!=35 && num!=12 && num!=28){ //if not RR or utilities
+          int transaction = players.get(turn).payRent();
+          history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+        }else{
+          if(num == 12 || num == 28){ //if utilities
+            int multiplier;
+            if(players.get(props[num].getOwnerID()).getUtilSize() == 1){
+               multiplier = 4; 
+            }else{
+              multiplier = 10;
+            }
+            int transaction = dice.getRoll()*multiplier;
+            history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          }else{
+            int transaction = (int)(25 * pow(2, players.get(props[num].getOwnerID()).getRrSize() - 1)); //railriad
+            getCurrentPlayer().changeMoney(-transaction);
+            history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          }
+        }
       }
     }
   }
   if (props[num].getName().equals("Chance")) {
-    history.add(new HistoryText(players.get(turn)+" has landed on Chance!", height*24/25));
+    //history.add(new HistoryText(players.get(turn)+" has landed on Chance!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     chanceCards.action();
   }
   if (props[num].getName().equals("Community Chest")) {
-    history.add(new HistoryText(players.get(turn)+" has landed on the Community Chest!", height*24/25));
+    //history.add(new HistoryText(players.get(turn)+" has landed on the Community Chest!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on the Community Chest!", "Community Chest!", JOptionPane.INFORMATION_MESSAGE);
     chestCards.action();
   }
@@ -334,6 +352,5 @@ Player getCurrentPlayer() {
   if(turn>=numPlayers){
      turn = 0; 
   }
-  //println("t"+turn);
   return players.get(turn);
 }

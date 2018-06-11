@@ -300,6 +300,10 @@ public class Player {
   //we don't need checkers for RR or util b/c their rent is based on numbers, not if there is mono
   //plus you can't build on them anyway
   
+
+  int getRrSize(){return rrSize;}
+  int getUtilSize(){return utilSize;}
+  
   String toString() {
     return name;
   }

@@ -1,7 +1,7 @@
 # Monopoly
 This is the board game Monopoly in Processing!. We implemented a lot of Monopoly's features, but ultimately, time ran out. Therefore, some features that are present in the game of Monopoly are not present here (like trading) and some features are not quite exactly the same as in the real board game.
 
-#List of features
+# List of features
 - Clicking in the middle of the board will roll the die and go to the next turn
 - Clicking on a property tile will bring up a pop-up menu asking you what to do
   -For the purposes of demonstration, you do NOT need a monopoly to build a house, you just need to own the property
@@ -15,8 +15,8 @@ This is the board game Monopoly in Processing!. We implemented a lot of Monopoly
 - Automatic rent collection and performance of actions
 - The window should be dynamic if you change size and keep ratio the same
 
-#New Features since Demo
+# New Features since Demo
 N/A
 
-#Instructions
+# Instructions
 Open in Processing!
