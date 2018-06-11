@@ -62,6 +62,7 @@ public class Property{
   color getColor(){return _color;}
   
   void setOwnerID(int num){ownerID = num;}
+  void setMort(boolean b){isMort = b;}
   
   String getOwnerName(){
     if(ownerID != -1){
@@ -145,7 +146,11 @@ public class Property{
         text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
       } else {
         if(!specialProp){
-          text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+          if(isMort){
+            text("Mortgaged" , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+          }else{
+            text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+          }
         }
       }
     }

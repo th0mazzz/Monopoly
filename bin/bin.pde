@@ -154,6 +154,12 @@ void mouseClicked() { //<>//
          if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
             getCurrentPlayer().sellHouse(props[propNum]); 
          }
+         if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+            props[propNum].setMort(true); 
+         }
+         if(response == 3 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+            props[propNum].setMort(false); 
+         }
          //MORTGAGE AND UNMORTGAGE!!!
       }
    }
@@ -237,8 +243,10 @@ void checkTile(int num) {
     }else{ //if owned
       if(props[num].getOwnerID() != turn){
         if(num != 5 && num!= 15 && num!=25 && num!=35 && num!=12 && num!=28){ //if not RR or utilities
-          int transaction = players.get(turn).payRent();
-          history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          if(!props[num].getIsMort()){
+            int transaction = players.get(turn).payRent();
+            history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          }
         }else{
           if(num == 12 || num == 28){ //if utilities
             int multiplier;
