@@ -155,6 +155,7 @@ void mouseClicked() { //<>//
      if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
         getCurrentPlayer().sellHouse(props[propNum]); 
      }
+     //MORTGAGE AND UNMORTGAGE!!!
    }
   }
   //<>//
