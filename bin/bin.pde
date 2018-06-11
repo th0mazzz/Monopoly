@@ -236,25 +236,35 @@ void checkTile(int num) {
       }
     }else{ //if owned
       if(props[num].getOwnerID() != turn){
-        if(num != 5 && num!= 15 && num!=25 && num!=35){ //if not RR
+        if(num != 5 && num!= 15 && num!=25 && num!=35 && num!=12 && num!=28){ //if not RR or utilities
           int transaction = players.get(turn).payRent();
           history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
         }else{
-          int transaction = (int)(25 * pow(2, players.get(props[num].getOwnerID()).getRrSize() - 1));
-          println(transaction);
-          getCurrentPlayer().changeMoney(-transaction);
-          history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          if(num == 12 || num == 28){ //if utilities
+            int multiplier;
+            if(players.get(props[num].getOwnerID()).getUtilSize() == 1){
+               multiplier = 4; 
+            }else{
+              multiplier = 10;
+            }
+            int transaction = dice.getRoll()*multiplier;
+            history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          }else{
+            int transaction = (int)(25 * pow(2, players.get(props[num].getOwnerID()).getRrSize() - 1)); //railriad
+            getCurrentPlayer().changeMoney(-transaction);
+            history.add(new HistoryText(players.get(turn)+" paid $"+transaction+" to "+props[num].getOwnerName(), height*24/25));
+          }
         }
       }
     }
   }
   if (props[num].getName().equals("Chance")) {
-    history.add(new HistoryText(players.get(turn)+" has landed on Chance!", height*24/25));
+    //history.add(new HistoryText(players.get(turn)+" has landed on Chance!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on Chance!", "Chance Card!", JOptionPane.INFORMATION_MESSAGE);
     chanceCards.action();
   }
   if (props[num].getName().equals("Community Chest")) {
-    history.add(new HistoryText(players.get(turn)+" has landed on the Community Chest!", height*24/25));
+    //history.add(new HistoryText(players.get(turn)+" has landed on the Community Chest!", height*24/25));
     JOptionPane.showMessageDialog(null, players.get(turn) + " has landed on the Community Chest!", "Community Chest!", JOptionPane.INFORMATION_MESSAGE);
     chestCards.action();
   }

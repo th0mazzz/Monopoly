@@ -28,4 +28,6 @@
     */
   }
   
+  int getRoll(){return l+r;}
+  
 }
