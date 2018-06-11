@@ -245,17 +245,10 @@ void mouseClicked() {
             getCurrentPlayer().sellHotel(props[propNum]);
          }
          if(response == 4 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 0){
-            props[propNum].setMort(true); 
+            props[propNum].mortgage(); 
          }
          if(response == 5 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
-            props[propNum].setMort(false); 
-         }
-         //MORTGAGE AND UNMORTGAGE!!!
-         if (response == 2 && turn == props[propNum].getOwnerID() ){
-           props[propNum].mortgage();
-         }
-         if (response == 3 && turn == props[propNum].getOwnerID() ){
-           props[propNum].unMortgage();
+            props[propNum].unMortgage(); 
          }
       }
       // other tiles 
