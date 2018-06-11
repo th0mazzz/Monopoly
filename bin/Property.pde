@@ -189,15 +189,9 @@ public class Property{
         text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
       } else {
         if(!specialProp){
-<<<<<<< HEAD
-          if(isMort){
-            text("Mortgaged" , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
-          }else{
-=======
           if (isMort) {
             text("Mortgage " + mortPrice , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
           } else {
->>>>>>> 1c3340ad18fb8d40db659274baa38088ce06e517
             text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
           }
         }
