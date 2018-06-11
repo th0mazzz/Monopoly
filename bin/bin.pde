@@ -177,18 +177,15 @@ void mouseClicked() {
        jailDouble = true;
      }
   }
-    //if (canRoll) {
+    if (canRoll) {
       numRolled = dice.roll();
-    //} else {
-      //numRolled = 0;
-    //}
     //getCurrentPlayer().printProperties();
     if (sameNum) {
       if (jailDouble) {
         getCurrentPlayer().move(numRolled);
         sameNum = false;
-        //canRoll = false;
-        turn++;        
+        canRoll = false;
+        //turn++;        
       } else {
         doubleCounter++;
         if (doubleCounter == 3) {
@@ -208,8 +205,13 @@ void mouseClicked() {
       sameNum = false;
       doubleCounter = 0;
       getCurrentPlayer().move(numRolled);
-      //canRoll = false;
-      turn++;    
+      canRoll = false;
+      //turn++;    
+    }
+    } else {
+      canRoll = true;
+      JOptionPane.showMessageDialog(null, getCurrentPlayer() + " ended their turn", "End Turn", JOptionPane.INFORMATION_MESSAGE);
+      turn++;
     }
   }else{
    if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height || mouseY>0 && mouseY<oneSide || mouseY>oneSide*10 && mouseY<height){
