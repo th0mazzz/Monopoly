@@ -130,6 +130,14 @@ public class Player {
      }
   }
   
+  boolean buildHouse(Property p){
+     return p.addHouse();
+  }
+  
+  boolean sellHouse(Property p){
+     return p.rmHouse(); 
+  }
+  
   void changeMoney(int num){
     money += num;
     if ( money < 0 ) {
@@ -207,14 +215,14 @@ public class Player {
     }
   }
   
-  boolean isRedMono(){return redMono.length == redSize;)
-  boolean isOrangeMono(){return orangeMono.length == orangeSize;)
-  boolean isYellowMono(){return yellowMono.length == yellowSize;)
-  boolean isGreenMono(){return greenMono.length == greenSize;)
-  boolean isLiblueMono(){return liblueMono.length == liblueSize;)
-  boolean isDkblueMono(){return dkblueMono.length == dkblueSize;)
-  boolean isPurpleMono(){return purpleMono.length == purpleSize;)
-  boolean isBrownMono(){return brownMono.length == brownSize;)
+  boolean isRedMono(){return redMono.length == redSize;}
+  boolean isOrangeMono(){return orangeMono.length == orangeSize;}
+  boolean isYellowMono(){return yellowMono.length == yellowSize;}
+  boolean isGreenMono(){return greenMono.length == greenSize;}
+  boolean isLiblueMono(){return liblueMono.length == liblueSize;}
+  boolean isDkblueMono(){return dkblueMono.length == dkblueSize;}
+  boolean isPurpleMono(){return purpleMono.length == purpleSize;}
+  boolean isBrownMono(){return brownMono.length == brownSize;}
   //we don't need checkers for RR or util b/c their rent is based on numbers, not if there is mono
   //plus you can't build on them anyway
   

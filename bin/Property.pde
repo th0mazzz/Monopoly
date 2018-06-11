@@ -68,20 +68,52 @@ public class Property{
     return "Unowned";
   }
   
+  boolean addHouse(){
+    if(numHouses < 4){
+      numHouses++;
+      return true;
+    }
+    return false;
+  }
+  
+  boolean rmHouse(){
+    if(numHouses > 0){
+       numHouses--;
+       return true;
+    }
+    return false;
+  }
+  
   public void display(){
     fill(_color);
     rectMode(CENTER);
     if(xcor == 0 && ycor != 0 && ycor != 10){
        rect(oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide);
+       for(int house = 0; house < numHouses; house++){
+         fill(255);
+         triangle(oneSide*7/8, oneSide*getYcor()+oneSide*house/4, oneSide*6/8, oneSide*getYcor()+oneSide*(house+1)/4, oneSide, oneSide*getYcor()+oneSide*(house+1)/4);
+       }
     }
     if(xcor == 10 && ycor != 0 && ycor != 10){
        rect(boardWidth-oneSide*7/8, oneSide/2 + oneSide*ycor, oneSide/4, oneSide);
+       for(int house = 0; house < numHouses; house++){
+         fill(255);
+         triangle(boardWidth-oneSide*7/8, oneSide*getYcor()+oneSide*house/4, oneSide*getXcor(), oneSide*getYcor()+oneSide*(house+1)/4, oneSide*getXcor()+oneSide/4, oneSide*getYcor()+oneSide*(house+1)/4);
+       }
     }
     if(ycor == 0 && xcor != 0 && xcor != 10){
        rect(oneSide/2 + oneSide*xcor, oneSide*7/8, oneSide, oneSide/4);
+       for(int house = 0; house < numHouses; house++){
+         fill(255);  
+         triangle(oneSide*getXcor()+ oneSide*(house *2 +1)/8 , oneSide*3/4, oneSide*getXcor()+ oneSide*house/4, oneSide, oneSide*getXcor()+ oneSide*(house+1)/4, oneSide);
+       }
     }
     if(ycor == 10 && xcor != 0 && xcor != 10){
        rect(oneSide/2 + oneSide*xcor, height-oneSide*7/8, oneSide, oneSide/4); 
+       for(int house = 0; house < numHouses; house++){
+         fill(255);  
+         triangle(oneSide*getXcor()+ oneSide*(house *2 +1)/8 , height-oneSide, oneSide*getXcor()+ oneSide*house/4, height-oneSide+.25*oneSide, oneSide*getXcor()+ oneSide*(house+1)/4, height-oneSide+.25*oneSide);
+       }
     }
     rectMode(CORNER);
     fill(0);
@@ -108,9 +140,6 @@ public class Property{
   
   
   
-  void action(){
-     println("Action!!!"); 
-  }
   
   public String toString(){
     return xcor +","+ycor+",$"+value+","+name+",\n"+des+",\n"+ownerID+",\n"+_color+",\n"+specialProp; 
