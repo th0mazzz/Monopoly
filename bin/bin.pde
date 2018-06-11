@@ -228,7 +228,7 @@ void mouseClicked() {
 
       // property tiles
       if(propNum != -1 && !props[propNum].getSpecialStatus()){
-          String[] choices = {"Build House", "Sell House", "Mortgage", "Unmortgage"};
+          String[] choices = {"Build House", "Sell House", "Build Hotel", "Sell Hotel", "Mortgage", "Unmortgage"};
           int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
          //build and stuff here
