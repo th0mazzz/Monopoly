@@ -154,7 +154,7 @@ void mouseClicked() { //<>//
          if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
             getCurrentPlayer().sellHouse(props[propNum]); 
          }
-         if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+         if(response == 2 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() && props[propNum].getNumHouses() == 0){
             props[propNum].setMort(true); 
          }
          if(response == 3 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
