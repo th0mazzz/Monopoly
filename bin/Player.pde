@@ -143,6 +143,10 @@ public class Player {
     if ( money < 0 ) {
       JOptionPane.showMessageDialog(null, name + " has gone bankrupt!", "Bankrupt", JOptionPane.INFORMATION_MESSAGE);
       players.remove(this);
+      numPlayers--;
+      for(Property p : properties){
+         p.setOwnerID(-1); 
+      }
       fill(204,255,245);
       noStroke();
       rect(5*boardWidth/11, height/11 +(id+1)*60-50, boardWidth/4,52);
@@ -166,6 +170,7 @@ public class Player {
   
   String getName(){return name;}
   int getMoney(){return money;}
+  color getColor(){return c;}
   
   void addProperty(Property p) {
     properties.add(p);
@@ -213,6 +218,34 @@ public class Player {
       utilMono[utilSize] = p;
       utilSize++;
     }
+  }
+  
+  boolean checkMono(Property p){
+    if(p.getColor() == -65536){
+      return isRedMono();
+    }
+    if(p.getColor() == -26317){
+      return isOrangeMono();
+    }
+    if(p.getColor() == -256){
+      return isYellowMono();
+    }
+    if(p.getColor() == -16711936){
+      return isGreenMono();
+    }
+    if(p.getColor() == -4980737){
+      return isLiblueMono();
+    }
+    if(p.getColor() == -16776961){
+      return isDkblueMono();
+    }
+    if(p.getColor() == -3407668){
+      return isPurpleMono();
+    }
+    if(p.getColor() == -10079488){
+      return isBrownMono();
+    }
+    return false;
   }
   
   boolean isRedMono(){return redMono.length == redSize;}

@@ -149,8 +149,11 @@ void mouseClicked() { //<>//
       int response = JOptionPane.showOptionDialog(null, "What would you like to do with "+props[propNum].getName()+"?", props[propNum].getName(), 
         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, choices[0]);
      //build and stuff here
-     if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+     if(response == 0 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus() /*&& getCurrentPlayer().checkMono(props[propNum])*/){ //rm checkMono for demo purposes 
         getCurrentPlayer().buildHouse(props[propNum]); 
+     }
+     if(response == 1 && turn == props[propNum].getOwnerID() && !props[propNum].getSpecialStatus()){
+        getCurrentPlayer().sellHouse(props[propNum]); 
      }
    }
   }

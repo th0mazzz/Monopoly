@@ -61,6 +61,8 @@ public class Property{
   boolean getSpecialStatus(){return specialProp;}
   color getColor(){return _color;}
   
+  void setOwnerID(int num){ownerID = num;}
+  
   String getOwnerName(){
     if(ownerID != -1){
       return players.get(ownerID).getName(); 
@@ -71,6 +73,7 @@ public class Property{
   boolean addHouse(){
     if(numHouses < 4){
       numHouses++;
+      players.get(ownerID).changeMoney(-getBuildingPrice());
       return true;
     }
     return false;
@@ -79,6 +82,7 @@ public class Property{
   boolean rmHouse(){
     if(numHouses > 0){
        numHouses--;
+       players.get(ownerID).changeMoney(getBuildingPrice()/2);
        return true;
     }
     return false;
@@ -114,6 +118,10 @@ public class Property{
          fill(255);  
          triangle(oneSide*getXcor()+ oneSide*(house *2 +1)/8 , height-oneSide, oneSide*getXcor()+ oneSide*house/4, height-oneSide+.25*oneSide, oneSide*getXcor()+ oneSide*(house+1)/4, height-oneSide+.25*oneSide);
        }
+    }
+    if(ownerID != -1){
+      fill(players.get(ownerID).getColor());
+      rect(oneSide*(getXcor()+1) - .5*oneSide, oneSide*(getYcor()+1) - .5*oneSide, 25, 25);
     }
     rectMode(CORNER);
     fill(0);
