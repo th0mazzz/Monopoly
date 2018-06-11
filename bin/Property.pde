@@ -28,6 +28,7 @@ public class Property{
     _color = color(red,green,blue);
     ownerID = -1; //-1 means bank's (not owned by player yet)
     isMort = false;
+    mortPrice = value/2;
     specialProp = special;
   }
   
@@ -145,7 +146,11 @@ public class Property{
         text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
       } else {
         if(!specialProp){
-          text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+          if (isMort) {
+            text("Mortgage " + mortPrice , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
+          } else {
+            text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+          }
         }
       }
     }
@@ -162,7 +167,15 @@ public class Property{
     }
   }
   
-  
+   void mortgage() {
+     isMort = true;
+     getCurrentPlayer().changeMoney(mortPrice);
+   }
+   
+   void unMortgage(){
+     isMort = false;
+     getCurrentPlayer().changeMoney(-mortPrice);
+   }
   
   
   public String toString(){
