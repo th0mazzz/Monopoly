@@ -96,7 +96,7 @@ public class Player {
           changeMoney(-transaction);
        }else{
           if(playerOn.getNumHouses() == 0){
-            if(1 == 0 /*if MONOPOLY*/){
+            if(players.get(playerOn.getOwnerID()).checkMono(playerOn)){
                transaction = playerOn.getBaseRent()*2;
                changeMoney(-transaction);
             }

@@ -88,6 +88,15 @@ public class Property{
     return false;
   }
   
+  int determineRent(){
+     if(numHouses == 0){return baseRent;}
+     if(numHouses == 1){return rentOne;}
+     if(numHouses == 2){return rentTwo;}
+     if(numHouses == 3){return rentThree;}
+     if(numHouses == 4){return rentFour;}
+     else{return rentHotel;}
+  }
+  
   public void display(){
     fill(_color);
     rectMode(CENTER);
@@ -130,7 +139,9 @@ public class Property{
       if (ownerID == -1) {
         text("$" + value, oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4);
       } else {
-        text("$" + "WIP rent", oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+        if(!specialProp){
+          text("Rent: $" +determineRent() , oneSide*xcor+oneSide/4, oneSide*ycor+oneSide*3/4); //i'm trying to make it displahh who's property that is
+        }
       }
     }
   }
