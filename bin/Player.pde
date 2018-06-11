@@ -7,6 +7,7 @@ public class Player {
   int counter, money, jailCounter,tileID, id;
   color c;
   boolean inJail, haveJailCard;
+  int inJailCounter;
   String name;
   float x, y;
   float xspeed, yspeed;
@@ -34,6 +35,7 @@ public class Player {
     }
     
     textHeight = height/11 + ((id+1)%(numPlayers/2))*60;
+    inJailCounter = 0;
     
     redMono = new Property[3];
     orangeMono = new Property[3];
@@ -179,6 +181,34 @@ public class Player {
     inJail = true;
   }
   
+  boolean isInJail() {
+    return inJail;
+  }
+  
+  boolean jailCard() {
+    return haveJailCard;
+  }
+  
+  void useJailCard() {
+    haveJailCard = false;
+    inJail = false;
+    inJailCounter = 0;
+  }
+  
+  void payJailFee() {
+    changeMoney(-50);
+    inJail = false;
+    inJailCounter = 0;
+  }
+  
+  void failDouble() {
+    inJailCounter++; 
+  }
+  
+  int getJailCounter() {
+    return inJailCounter; 
+  }
+    
   String getName(){return name;}
   int getMoney(){return money;}
   color getColor(){return c;}

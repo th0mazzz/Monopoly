@@ -15,6 +15,8 @@ History history;
 String[] inputNames = {"Adam", "Blake", "Carol", "Daniel"};
 int numPlayers = 4;
 int turn;
+boolean sameNum;
+int doubleCounter;
 int numRolled;
 boolean defaultOption;
 
@@ -150,16 +152,58 @@ void draw() {
 }
 
 void mouseClicked() { //<>//
-  
-    println(turn);
+  boolean jailDouble = false;
+    //println(turn);
   if(mouseX>height/11 && mouseX<width*7/11 && mouseY>height/11 && mouseY<height*10/11){
     if (turn >= players.size()) {
       turn = 0;
     }
+    if (getCurrentPlayer().isInJail() && getCurrentPlayer().getJailCounter() != 3) {
+    String[] options = {"Pay $50", "Try to roll a double"}; 
+     if (getCurrentPlayer().jailCard()) {
+      String[] temp = {"Pay $50", "Try to roll a double", "Use Get out of Jail Card"}; 
+      options = temp;
+     }
+     int choice =  JOptionPane.showOptionDialog(null, "Choose", "Warning",JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,null, options, options[0]);
+     if (choice == 0) {
+       getCurrentPlayer().payJailFee();
+     }
+     if (choice == 2) {
+       getCurrentPlayer().useJailCard();
+     }
+     if (choice == 1) {
+       jailDouble = true;
+     }
+  }
     numRolled = dice.roll();
-    getCurrentPlayer().move(numRolled);
+    
     //getCurrentPlayer().printProperties();
-     turn++;    
+    if (sameNum) {
+      if (jailDouble) {
+        getCurrentPlayer().move(numRolled);
+        sameNum = false;
+        turn++;        
+      } else {
+        doubleCounter++;
+        if (doubleCounter == 3) {
+          int num = 10-getCurrentPlayer().getCurrentTile();
+          if (num < 0) {
+            num+= 40;
+          }
+          if (num > 10) {
+            getCurrentPlayer().changeMoney(-200);
+          }
+          getCurrentPlayer().goToJail(); 
+          getCurrentPlayer().move(num);
+        }
+        getCurrentPlayer().move(numRolled);
+      }
+    } else {
+      sameNum = false;
+      doubleCounter = 0;
+      getCurrentPlayer().move(numRolled);
+      turn++;    
+    }
   }else{
    if(mouseX>0 && mouseX<oneSide || mouseX>10*oneSide && mouseX<height || mouseY>0 && mouseY<oneSide || mouseY>oneSide*10 && mouseY<height){
       int mx = mouseX / (height/11);
