@@ -24,7 +24,7 @@ This is the board game Monopoly in Processing!. We implemented a lot of Monopoly
 # New Features since Demo
 N/A
 
-# Features that we wanted
+# Planned Features that isn't finish
 - Trading among players
 - Tokens for players
 
@@ -32,18 +32,8 @@ N/A
 Open in Processing!
 1. Enter the number of players. The minimum players is 2 and the maximum is 12. 
 2. Enter the names of all the players. 
-3. Choose whether to have the default game version. If you choose no, then select the amount of money each players starts with. 
-4. Play the game.
+3. Choose whether to have the default game version. If you choose no
+  3a. Select the amount of money each players starts with. 
+4. Play the game. Click in the aqua background to roll the dice. Click again to end your turn. 
 
-# Controls
-- Clicking on the blue portion of the board will either roll the dice or end your turn, depending on whether the dice had been rolled yet. You will automatically advance to the tile you rolled onto.
-- Click on a property to view possible actions (you can only affect properties you own on your turn).
-- Build a house by clicking on a property you wish to build on and the corresponding button. You can build a maximum of 4 houses. (Note: In actual Monopoly, you may only build if you have a monopoly. However, we disabled that restriction because the chances of obtaining a full Monopoly without trade is pretty slim.)
-- Sell the house by clicking a property whose house you wish to sell and click the corresonding button.
-- Build a hotel by clicking a property and the corresponding button. You can only build a hotel if you have 4 houses on a property. Doing so will remove the houses.
-- Sell the hotel by clicking on a property and the corresponding button. When you sell a hotel, the 4 houses come back.
-- Mortgage a property by clicking on a property and the corresponding button.
-- Unmortgage a property by clicking on a property and the corresponding button.
-- Landing on an unowned property will prompt you to either purchase it or auction it.
-- Purchasing it will... purchase it.
-- Auctioning it will continue until all but the highest bidder resigned.
+- Click on the property tiles for extra options such as buying houses, buying hotels, mortgaging, and unmortgaging.
