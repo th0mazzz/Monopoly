@@ -47,3 +47,9 @@ Open in Processing!
 - Landing on an unowned property will prompt you to either purchase it or auction it.
 - Purchasing it will... purchase it.
 - Auctioning it will continue until all but the highest bidder resigned.
+
+# Cheats On
+- The cheatsOn branch will allow you to control what the dice roll. You input the value of the left die and the value of the right die. The sum of the two dice is how many spaces you move.
+- To get to cheatsOn, you merely do:
+
+git checkout cheatsOn
