@@ -32,3 +32,4 @@ Open in Processing!
 4. Play the game. Click in the aqua background to roll the dice. 
 
 - Click on the property tiles for extra options such as buying houses, buying hotels, mortgaging, and unmortgaging.
+
