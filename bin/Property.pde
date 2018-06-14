@@ -205,8 +205,8 @@ public class Property{
       getCurrentPlayer().addProperty(this);
       return value;
     } else {
-      System.out.println("WIP");
-      return 50;
+      //System.out.println("WIP");
+      return determineRent();
     }
   }
   
